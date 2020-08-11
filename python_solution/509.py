@@ -47,15 +47,10 @@ class Solution(object):
 
 #while loop
 def fib_loop(N):
-    cur ,pos = 0,1
-    if N ==0 :
-        return 0
-    elif N==1:
-        return 1
+    x,y = 0,1
+    c = 0
 
-    while N>1 :
-        N -= 1
-        tot = cur + pos
-        cur = pos
-        pos = tot
-    return tot
+    while N >c:
+        x,y = y,x+y
+        c+=1
+    return x
