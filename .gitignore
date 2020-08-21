@@ -15,6 +15,7 @@
 *.swp
 *.patch
 *.bin
+.vscode/
 
 #
 # Generated files
