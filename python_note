@@ -1,0 +1,863 @@
+在Python 2.6中，print是個陳述句，而在Python 3中，print是個函式，若要在Python 2.6中使用Python 3中的print函式，則可以：
+from __future__ import print_function
+
+
+安裝 PIP 來管理 Python Packages  :  apt-get install python-pip
+pip list # 看目前系統有安裝哪些套件
+pip search mysql # 搜尋相關套件
+pip install package # 安裝套件
+pip uninstall package # 移除套件
+pip show --files package # 秀套件檔案列表
+pip list --outdated # 列出過期套件
+pip install --upgrade package # 升級
+
+-----------------------------------------------------------------------
+Python :string 常用的方法
+以下例出字串常用的方法
+
+#把字串都轉成大寫
+string='abcde' 
+string_test=string.upper() 
+print string_test
+
+#把字串都轉成小寫
+
+string='ABCDEF'
+
+string.lower()
+
+若是把跳脫機制關掉，字串看起來會比較直覺。
+使用的方式，就是在字串的前面加一個 "r"
+link = r'c:\\a\\b\\text.txt'
+
+convert to string from a list by "join()"
+mylist = ['a','b','c']
+','.join(mylist)   #'a,b,c'
+
+
+string_test='abc:a'
+print string_test.split(':')
+
+#用:作分隔,return 一個list回來
+
+['abc', 'a']
+
+a='abc\n   '
+x=a.strip() #去除特殊字
+print x
+
+abc
+
+in 這個指令,可以檢查字串是否在某個變數裡面
+
+若存在會return True
+
+ex:
+print 'B' in string_test 
+
+replace 字串取代
+
+找到的字元or字串,取代成另一個字元or字串
+
+a='abc,b,c,d '
+print a
+b=a.replace('b','kkkk')
+print b
+
+重複輸出字串
+
+str='*'
+newstr=str*5 
+print newstr
+
+取得字串長度
+
+string="abcdef"
+
+string_len=len(string)
+
+print string_len
+
+split function
+
+用split對字串做split 的動作 ,此function 有2個重點  return 一個 list, 分割符號 要用 '' 包起來
+
+ 
+
+1.split 分割符號 , 預設為空白
+
+>>> string="a b c d e"
+>>> string.split()
+['a', 'b', 'c', 'd', 'e']
+
+2.用特定符號做分割
+
+>>> string="a:b:c:d:e"
+>>> string.split(":")
+['a', 'b', 'c', 'd', 'e']
+
+3.取得分割後的第n個元素
+
+>>> string="a:b:c:d:e"
+
+>>> string.split(':')[0]
+'a'
+
+索引
+python字串，可以從左邊索引，或是從右邊索引。若是從左邊索引則從0,1, 2...，反之若從右邊索引，則為-1, -2...
+當索引值超過範圍會產生 IndexError。
+
+切片
+若要取得字串的片段，可以使用切片的方式，使用方式在字串名稱後加中括號。
+使用方式:
+字串名稱[起始:結束:步進值]  ,將字串從起始開始抓取，"不"包含結束值，每抓取一次步進一次。 
+起始、結束、步進值都可以省略。若起始值省略，代表從0開始 ,若結束值省略，代表到字串結束
+若步進值省略，代表1
+
+str = "hello"
+str[-1::-1]  #olleh , string "reverse"
+
+字串格式
+s = "%05d %3.2f %s" % (123, 456.789, "ABC")
+>>> s
+'00123 456.79 ABC'
+
+----------------------------------------------------------------  
+multi-line strings : 
+Are you talking about multi-line strings? Easy, use triple quotes to start and end them.
+
+s = """ this is a very
+        long string if I had the
+        energy to type more and more ..."""
+You can use single quotes too (3 of them of course at start and end) and treat the resulting string s just like any other string.
+
+NOTE: Just as with any string, anything between the starting and ending quotes becomes part of the string, so this example has a leading blank (as pointed out by @root45). This string will also contain both blanks and newlines.
+
+I.e.,:
+
+' this is a very\n        long string if I had the\n        energy to type more and more ...'
+Finally, one can also construct long lines in Python like this:
+
+ s = ("this is a very"
+      "long string too"
+      "for sure ..."
+     )
+which will not include any extra blanks or newlines (this is a deliberate example showing what the effect of skipping blanks will result in):
+
+'this is a verylong string toofor sure ...'
+No commas required, simply place the strings to be joined together into a pair of parenthesis and be sure to account for any needed blanks and newlines.
+
+
+----------------------------------------decode  encode-----------------------
+
+print 中文 : 
+# -*- coding: utf8 -*-
+
+UTF-8（8-bit Unicode Transformation Format）是一種針對Unicode的可變長度字元編碼，也是一種字首碼。它可以用來表示Unicode標準中的任何字元，且其編碼中的第一個位元組仍與ASCII相容，這使得原來處理ASCII字元的軟體無須或只須做少部份修改，即可繼續使用。因此，它逐漸成為電子郵件、網頁及其他儲存或傳送文字的應用中，優先採用的編碼。
+
+與外界溝通 - decode與encode
+在上面我們學到了如何表示 unicode 字串，但是事實上是， unicode 字串只能存在程式的內部，並沒有一個統一的表達方式，並沒有辦法和外界溝通，因此當我們想把字串存到檔案裡，或著透過網路傳給別人，得先將 unicode 字串編碼成成 str 字串，相對地，當我們想開啟某種編碼的檔案時，我們得進行解碼
+
+Python編碼或解碼的方式很簡單，透過encode與decode的函數呼叫，我們可以在 unicode 和 str 兩種之間進行轉換
+
+unicode -------> string
+	 encode
+unicode <------- string
+	 decode
+
+# -*- coding: utf8 -*-
+msg = u'今天天氣真好'    #Python表示unicode字串的方式，是在字串前面加上一個u ; 在Python3因為字串已經全部統一成 unicode ，所以不必加上 u
+encoded = msg.encode('utf8')
+print repr(encoded)
+相反的，解碼一樣簡單
+
+# -*- coding: utf8 -*-
+encoded = '\xe4\xbb\x8a\xe5\xa4\xa9\xe5\xa4\xa9\xe6\xb0\xa3\xe7\x9c\x9f\xe5\xa5\xbd'
+msg = encoded.decode('utf8')
+print msg
+
+
+data structure : set , tuple ,list
+Tuple就像是串列（List），不過串列是可變動（Mutable）物件，而Tuple是不可變動（Immutable）物件
+list使用中括號[]，tuple使用小括號()
+
+相加
+串列或tuple可以相加(concatenate)，前題是串列必須與串列相加，tuple則必須與tuple相加，最後會傳回新的串列或tuple。
+
+--------------------------------------------set-------------------------
+1.set does not contain duplicate elements  , a given object appears in a set 0 or 1 times
+2.set is an unordered collection of objects, unlike sequence objects such as lists and tuples, in which each element is indexed
+3.all members of a set have to be hashable
+
+在Python2.6與Python3，集合中不可以放入可變動（Mutable）物件
+如果使用add()方法給定一個集合物件，由於集合物件是可變動的，不能加入目標集合中，而需要將元素一個一個取出，再加入目標集合中，這可以使用update()方法來完成
+ex : 
+family = {'Justin'}
+family.add({'Momor', 'Hamini'})   #TypeError
+family.update({'Momor', 'Hamini'}) # {'Hamini', 'Justin', 'Momor'}
+
+
+set1 = set()                   # A new empty set
+set1.add("cat")                # Add a single member
+set1.update(["dog", "mouse"])  # Add several members
+if "cat" in set1:              # Membership test
+  set1.remove("cat")
+#set1.remove("elephant") - throws an error  removing a item which isn't in the set causes an error.
+set1.discard("elephant")       # No error thrown  ,discard will simply do nothing if the element isn't in the set
+print set1
+for item in set1:              # Iteration AKA for each element
+  print item
+print "Item count:", len(set1) # Length AKA size AKA item count
+isempty = len(set1) == 0       # Test for emptiness
+set1 = set(["cat", "dog"])     # Initialize set from a list
+set2 = set(["dog", "mouse"])
+set3 = set1 & set2             # Intersection
+set4 = set1 | set2             # Union
+set5 = set1 - set3             # Set difference
+set6 = set1 ^ set2             # Symmetric difference
+issubset = set1 <= set2        # Subset test
+issuperset = set1 >= set2      # Superset test
+set7 = set1.copy()             # A shallow copy
+set7.remove("cat")
+set8 = set1.copy()
+set8.clear()                   # Clear AKA empty AKA erase
+print set1, set2, set3, set4, set5, set6, set7, set8, issubset, issuperset
+
+---------------------------------------------------queue--------------------------------------------
+
+from collections import deque   # import collections 也可以
+
+append默认从集合的右边增加数组元素，而另一个appendleft可以从集合的左边增加元素
+append和appendleft方法对应的还有pop和popleft方法分别用于从集合中取出元素
+
+import collections  
+print "From the right"  
+d=collections.deque('abcdefg')  
+while True:  
+    try:  
+        print d.pop(),  
+    except IndexError:  
+        break  
+print  
+  
+print '\n From the left'  
+d=collections.deque(xrange(6))  
+while True:  
+    try:  
+        print d.popleft(),  
+    except IndexError:  
+        break  
+print
+
+
+Find all files in directory with extension .txt in Python 
+
+os.listdir:
+
+import os
+for file in os.listdir("/mydir"):
+    if file.endswith(".txt"):
+        print(file)
+or if you want to traverse directory, use os.walk:
+
+使用os.walk() 遞迴印出資料夾中所有目錄及檔名:
+import os
+for dirPath, dirNames, fileNames in os.walk("/python/demo/"):
+    print dirPath
+    for f in fileNames:
+        print os.path.join(dirPath, f)
+
+
+>>> names = ['Alice', 'Bob', 'Cindy']
+>>> for index, element in enumerate(names):
+...     print(index, element)
+... 
+0 Alice
+1 Bob
+2 Cindy
+>>> 
+
+
+
+
+許多程式語言都有 ternary operator ?: 這種東西，Python 並沒有這樣的 operator ，但有個慣用表達方式可以達到類似目的，不過要注意太複雜的語句就不適合這樣使用了。
+
+慣用
+
+ def foo(logging):
+    level = (1 if logging else 0)
+
+非慣用
+
+ def foo(logging):
+    if logging:
+        level = 1
+    else:
+        level = 0
+
+
+>>> 'hex of num {0:d} is 0x{0:x}'.format(15)
+'hex of num 15 is 0xf'
+
+c语言中有三目条件符 <condition> ? <expression1> : <expression2>
+Python可以通过<expression1> if <condition> else <expression2>来达到同样目的
+另外, python还可以使用and_or大法, <condition> and <expression1> or <expression2>
+ex :
+age>=18 and 'adult' or 'kid'
+
+
+
+common mistake :
+def foo(a=10,b):
+    print(a,b)
+ 
+  File "<stdin>", line 1
+SyntaxError: non-default argument follows default argument
+
+Common Mistake #1: Misusing expressions as defaults for function arguments
+
+A common mistake is to think that the optional argument will be set to the specified default expression each time the function is called without supplying a value for the optional argument.
+
+the default value for a function argument is only evaluated once, at the time that the function is defined
+
+a common workaround for this is as follows:
+
+>>> def foo(bar=None):
+...    if bar is None:		# or if not bar:
+...        bar = []
+...    bar.append("baz")
+...    return bar
+
+
+Python循环中的else语句
+在 python 中，for … else 表示这样的意思，for 中的语句和普通的没有区别，else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出而中断的）的情况下执行，while … else 也是一样。
+
+Returning Multiple Values from a Function :
+return a tuple  
+
+lambda的語法是：
+lambda arg1, arg2, ....: expression
+
+def max(m, n):
+    return m if m > n else n
+
+你可以用lambda運算式來定義函式，執行運算式時將會產生函式物件。 例如，上面的max函式，可以用以下的方式定義：
+max = lambda m, n: m if m > n else n
+
+Python中缺少其它語言中的switch陳述句，以下結合字典物件與lambda模擬switch的示範:
+score = int(input('請輸入分數：'))
+level = score // 10
+{
+    10 : lambda: print('Perfect'),
+    9  : lambda: print('A'),
+    8  : lambda: print('B'),
+    7  : lambda: print('C'),
+    6  : lambda: print('D')
+}.get(level, lambda: print('E'))()
+
+
+itertool introduction :
+import itertools 
+   
+Skipping the First Part of an Iterable  :  using dropwhile()
+------------------------------------------------------
+# the following example skip the first part of #xxxxxxx lines
+from itertools import dropwhile
+with open('/etc/passwd') as f:
+    for line in dropwhile(lambda line: line.startswith('#'), f):
+        print(line, end='')
+------------------------------------------------------
+#simply filtering all of lines starts with #
+with open('/etc/passwd') as f:
+    lines = (line for line in f if not line.startswith('#')) 
+    for line in lines:
+        print(line, end='')
+
+
+#Iterating Over All Possible Combinations or Permutations
+permutations()  ,  combinations() , combinations_with_replacement()
+
+而在Python 3中，print是個函式，若要在Python 2.6中使用Python 3中的print函式:
+from __future__ import print_function
+
+classmethod vs staticmethod :
+http://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python
+
+
+The variable sys.path is a list of strings that determines the interpreter’s search path for modules. It is initialized to a default path taken from the environment variable PYTHONPATH, or from a built-in default if PYTHONPATH is not set. You can modify it using standard list operations:
+
+>>>
+>>> import sys
+>>> sys.path.append('/ufs/guido/lib/python')
+
+顯示當前時間
+from time import strftime
+>>> date_t = strftime("%Y%m%d %H%M%S")   # '20161110 105731'   年月日 時分秒
+-------------------------------------------------------------
+any() : 
+
+def is_dangerous(sql):
+    actions = ('update', 'delete', 'replace')
+    return any(sql.startswith(action) for action in actions)
+
+
+private variable :
+
+以number為例
+Module private : _number
+
+達到 Private 的效果：Import 除非明確把 name 打出來，不然 from A import * 時會自動略過所有以一個下底線 _ 開頭的變數
+使用時機：在 Module level 下，告知外界，這些變數/函式是Private性質的，不建議外界直接存取
+強制使用方式： 直接Import即可，例如： from A import _Number
+Class Private : __number
+
+達到 Private 的效果：Class 物件被建立的時侯，所有 __XXX 會被 name mangling成 _ClassName__XXX
+使用時機：跟 Module private 一樣，就是表現出這些成員是內部使用的，不建議外界直接存取
+
+quick sort 
+def qsort(numbers):
+    if len(numbers) <= 1:
+        return numbers                                                                                     
+    pivot = numbers[0]
+    rest = numbers[1:]
+    smaller = [n for n in rest if n <= pivot]
+    larger = [n for n in rest if n > pivot]
+    return qsort(smaller) + [pivot] + qsort(larger)
+
+
+-------------------------------------------------regular expression--------------------
+在python之中, 要使用regular expression (簡稱regex), 只要import re這個 module
+
+re.compile  , 用來將正則表達式轉換爲一個「pattern object」，我們可以稱之爲「模式對象」。
+將正則表達式轉換爲模式對象的作用就是可以將其保存下來，已備後續之用
+
+re.match(pat,string)   #checks whether the source begins with the pattern
+re.findall(pat,string) #findall() returns a list of all non-overlapping matches, if any.
+re.search(pat,string)  #search() returns the first match, if any.
+re.split(pat,string)   #splits source at matches with pattern and returns a list of the string pieces.
+
+
+
+
+match() works only if the pattern is at the beginning of the source. But search() works if the pattern is anywhere
+
+Replace at matches with sub()
+This is like the string replace() method, but for patterns rather than literal strings:
+
+re.IGNORECASE = re.I
+re.compile(r'^Hello',re.I) #match both hello and Hello
+語法
+-------------------------------------------------------------------------------------
+
+'.'  Wildcard Character
+匹配除「\n」之外的任何'單'個字符
+例： a.c 匹配 abc1234 => abc
+
+'^'
+匹配輸入字串的開始位置
+設定 RegExp 物件的 Multiline 屬性，可匹配「\n」或「\r」之後的位置
+例： ^ab 匹配 abc1234 => ab
+
+'$'
+匹配輸入字串的結束位置
+設定 RegExp 物件的 Multiline 屬性，可匹配「\n」或「\r」之前的位置
+例： 34$ 匹配 abc1234 => 34
+
+'*'
+匹配至少零次
+例： ac* 匹配 abc1234 => a
+
+'+'
+匹配至少一次
+例： ab.+ 匹配 abc1234 => abc1234
+
+'?'
+匹配零次或一次
+例： ab? 匹配 abc1234 => ab
+
+
+{m}
+匹配 m 次
+例： a{3} 匹配 aaaaa => aaa
+
+{m,n}
+匹配次數介於 m & n 之間，省略 n 表示無限次
+例： a{1,3} 匹配 aaaaa => aaa
+
+[]
+匹配字元集合
+- 表示從某字元到某字元，例：[a-z]
+^ 表示排除字元，例：[^a-z]，需放置最前面，不然當作字元 '^'
+例： [a\-z]b 匹配 a-baaa => -b
+
+\d
+匹配數字 unicode 包括全部數字，在 (?a) 下同 [0-9]
+例： 1\d 匹配 1234 => 12
+
+\D
+匹配非數字 unicode 包括全部數字，在 (?a) 下同 [^0-9]
+
+\w
+匹配 word， unicode 包括全部 word (alpha + number )，在 (?a) 下同 [a-zA-Z0-9_]
+
+\s
+匹配空白字符 unicode 包括全部空白字符，在 (?a) 下同 [ \t\n\r\f\v]
+
+.*    # any character without newline char , greedyRegex  ,  try to	match as much text as possible
+re.compile('.*',re.DOTALL)   #  match all characters,	including the	newline	character
+.*?   # nongreedyRegex , try to	match as less text as possible
+
+re.compile(r'^\d+$')   # whole string is num
+
+Case-Insensitive Matching
+re.compile(r'robocop',re.I)   # re.I  make your	regex case-insensitive
+
+
+re.VERBOSE : ignore whitespace and	comments inside	the regular expression	string
+------------------[Python] 使用 os.path 處理路徑問題-------------------
+os.path 是很方便的東西，可以用來處理檔案或目錄的路徑問題，
+
+最近最常用的就是 join() 這個函式，可以跨平台的產生正確的檔案路徑，
+
+例如下面的程式，在 Windows 上會產生 a\b\c，在 Linux 上會產生 a/b/c：
+
+import os
+print os.path.join("a", "b", "c") 
+ 
+
+如果想要去根目錄的話，可以加上 os.path.sep，
+
+這個值基本上也是依據作業系統而自動調整，在 Windows 上是 \，在 Linux 上則是 /，
+
+因此下面的程式就會在 Linux 上產生 /a/b/c 了：
+
+import os
+print os.path.join(os.path.sep, "a", "b", "c") 
+ 
+
+如果想把相對路徑轉換成絕對路徑也相當的容易，
+
+例如在 /tmp 目錄下，想把 a/b/c/../d 這個相對路徑轉成絕對路徑的話，
+
+就會變成 /tmp/a/b/d：
+
+import os
+relative_path = os.path.join("a", "b", "c", "..", "d")
+print os.path.abspath(relative_path)
+
+
+----------------------------[Python] 時間格式轉換(strtime & strftime)---------------------
+from datetime import datetime
+
+datetime.now().strftime("%Y-%m-%d %H:%M:%S")    #'2016-12-12 17:30:28'
+僅日期
+datetime.now().date().strftime("%Y-%m-%d")      #'2016-12-12'
+
+
+strftime 將 datetime object 轉換成String
+strptime 將 datetime string 轉換成object
+
+>>> datetime.now()
+datetime.datetime(2011, 1, 11, 16, 19, 5, 211588)
+
+>>> datetime.now().isoformat()
+'2011-01-11T16:20:06.161541'
+
+>>> datetime.strftime(datetime.now(), '%Y-%m-%d')
+'2011-01-11'
+
+>>> datetime.strptime(datetime.now().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
+datetime.datetime(2011, 1, 11, 16, 24, 18, 411861)
+
+---------------------------------------------------------------------------------
+
+How to check version of python modules?
+python show module
+I suggest using pip in place of easy_install. With pip, you can list all installed packages and their versions with
+
+pip freeze
+For an individual module, you can try __version__ attribute, however there are modules without it:
+
+$ pip freeze | grep lxml
+lxml==2.3
+$ python -c "import lxml; print lxml.__version__"
+
+
+你想读写JSON(JavaScript Object Notation)编码格式的数据
+	1.json.dumps() 和 json.loads() 
+	2.如何将一个JSON字典转换为一个Python对象例子
+
+
+
+you can save the current cookies as a python object using pickle - for example
+
+import pickle
+import selenium.webdriver 
+
+driver = selenium.webdriver.Firefox()
+driver.get("http://www.google.com")
+pickle.dump( driver.get_cookies() , open("cookies.pkl","wb"))
+and later to add them back:
+
+import pickle
+import selenium.webdriver 
+
+driver = selenium.webdriver.Firefox()
+driver.get("http://www.google.com")
+cookies = pickle.load(open("cookies.pkl", "rb"))
+for cookie in cookies:
+    driver.add_cookie(cookie)
+
+
+import shutil
+shutil.rmtree(path)  # remove the folder at  path , and all files and folders it contains will also be deleted
+
+dict:
+
+
+
+-----------------------------------defaultdict
+import collections
+
+the_dict = collections.defaultdict(list)
+for author, book in books:
+    the_dict[author].append(book)
+
+defaultdict 如果 key 不在該 dictionary 中，就會設 dict[key] = default，然後回傳 default  ,  dict 會有KeyError
+defaultdict 的第一個引數是一個 factory function ，用來替 defaultdict 實例裡頭不存在的 key 設定 value 預設值，這上面的例子中為 list ，所以每個預設值為 list()，也就是 []。
+
+defaultdict 其餘的用法和 dict 是一樣的，因為是 dict 的子類。
+
+想要讓default值為0，那有一個方法就是建構一個生成0的函數 , 或者直接使用counter ：
+def zero():
+    return 0
+
+counter_dict = defaultdict(zero) # default值以一個zero()方法產生
+a_list = ['a','b','x','a','a','b','z']
+
+for element in a_list:
+        counter_dict[element] += 1
+
+print(counter_dict) # 會輸出defaultdict(<function zero at 0x7fe488cb7bf8>, {'x': 1, 'z': 1, 'a': 3, 'b': 2})
+
+browser 開發環境 : jupyter
+pip3 install jupyter
+jupyter notebook    # 開啟jupyter in browser
+%matplotlib inline  # 可直接在browser IDE上畫圖
+
+ex : draw sin picture 
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(0, 5, 0.1);
+y = np.sin(x)
+plt.plot(x, y)
+
+----------------------------[Python]如何在Python排序(Python Sorting)
+
+sorted()可用來排序任何的iterable(string, dictionary, tuple...)
+reverse設成True的時候，會把排序的結果由預設的ascending改成descending
+
+如果要根據某些欄位來做sort，也可以用key這個參數 , 要注意的是，key只接受function當作參數。
+Python提供operator module，以下是使用operator module中的itemgetter()的範例
+from operator import itemgetter, attrgetter
+
+students = [
+        ('john', 'A', 15),
+        ('jane', 'B', 12),
+        ('dave', 'B', 10),
+]
+sorted(students, key = lambda x : x[2])   # sort by age  #[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+sorted(student_tuples, key=itemgetter(2)) #[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+如果sort的物件是class object的話，也可以使用operator module中的attrgetter()來做sort
+class Student:
+        def __init__(self, name, grade, age):
+                self.name = name
+                self.grade = grade
+                self.age = age
+        def __repr__(self):
+                return repr((self.name, self.grade, self.age))
+
+student_objects = [
+        Student('john', 'A', 15),
+        Student('jane', 'B', 12),
+        Student('dave', 'B', 10),
+]
+
+sorted(student_objects, key=attrgetter('age')) #[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+如果要先比成績再比年齡的話，用operator module很簡單就可以做到
+sorted(student_objects, key=attrgetter('grade', 'age'))  #[('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]
+
+
+import matplotlib.pyplot as plt
+matplotlib 畫一些基本的圖形，包括：
+直方圖（Histogram） 	  plt.hist()
+散佈圖（Scatter plot）	  plt.scatter()
+線圖（Line plot）	  plt.plot()
+長條圖（Bar plot）	  plt.bar() 
+盒鬚圖（Box plot）
+
+
+儲存圖形 :
+使用圖形物件的 savefig() 方法。
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+normal_samples = np.random.normal(size = 100000) # 生成 100000 組標準常態分配（平均值為 0，標準差為 1 的常態分配）隨機變數
+
+plt.hist(normal_samples)
+plt.savefig(filename = "my_hist.png", format = "png")
+
+
+Error “ 'dict' object has no attribute 'iteritems' 
+As you are in python3 , use dict.items() instead of dict.iteritems()
+iteritems() was removed in python3, so you can't use this method anymore.
+
+去除標點符號和全形底線
+re.sub('[\W\_]','',temp)
+
+Python 排列组合的计算
+1. 调用 scipy 计算排列组合的具体数值
+
+A23=6,(32)=3
+
+>> from scipy.special import comb, perm
+>> perm(3, 2)
+6.0
+>> comb(3, 2)
+3.0
+
+2. 调用 itertools 获取排列组合的全部情况数
+
+>> from itertools import combinations, permutations
+>> permutations([1, 2, 3], 2)
+<itertools.permutations at 0x7febfd880fc0>
+                # 可迭代对象
+>> list(permutations([1, 2, 3], 2))
+[(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)]
+
+>> list(combinations([1, 2, 3], 2))
+[(1, 2), (1, 3), (2, 3)]
+
+--------------------------------------list 相加------
+list_a = [1, 2, 3]
+list_b = [10, 20, 30]
+  
+list(map(lambda x, y: x + y, list_a, list_b)) # Output: [11, 22, 33]
+
+
+pandas 
+-----------------------------------------------------------------
+import pandas as pd
+import numpy as np
+# DF TO EXCEL
+from pandas import ExcelWriter
+
+writer = ExcelWriter('PythonExport.xlsx')
+yourdf.to_excel(writer,'Sheet5')
+writer.save()
+
+# DF TO CSV
+yourdf.to_csv('PythonExport.csv', sep=',')
+
+#csv to dataframe
+df = pd.read_csv('grade.csv')
+
+#select index only for column 'HW1' > 70
+select_df = df[df.loc[:,'HW1']>70]
+
+# specific column to list
+select_df['姓名'].tolist()
+
+#sort index by 'HW1' descending
+select_df.sort_values(by='HW1',ascending=False)  # default is ascending
+
+#show the total nums which 'HW1' values equal to 99
+select_df.groupby('HW1').size()[99]
+
+#To select rows whose column value equals a scalar &
+df.loc[(df['column_name'] >= A) & (df['column_name'] <= B)]
+
+#To select rows whose column value is in an iterable, some_values, use isin
+df.loc[df['column_name'].isin(some_values)]
+
+#show the most common complaint type
+df['Complaint Type'].value_counts()
+
+-----------------------------------------------------------------
+
+>>> sentence = ['this','is','a','sentence']
+>>> '-'.join(sentence)
+'this-is-a-sentence'
+
+去標點:
+re.sub('\W', '', s)
+
+pip 指令更新 python packages
+以下皆以 pip 指令進行示範：
+
+    更新一個已知名稱的 Python package，如 numpy package
+
+    pip install -U numpy
+
+    或是
+
+    pip install --upgrade numpy
+
+
+    更新所有已安裝的packages
+
+    pip list |awk '{print $1}' |xargs -n 1 pip install --upgrade
+
+移動窗口概念引入
+
+爲了提升數據的準確性，將某個點的取值擴大到包含這個點的一段區間，用區間來進行判斷，這個區間就是窗口。移動窗口就是窗口向一端滑行，默認是從右往左，每次滑行並不是區間整塊的滑行，而是一個單位一個單位的滑行。
+s = [1,2,3,5,6,10,12,14,12,30]
+pd.Series(s).rolling(window=3).mean()
+
+
+python3 -m virtualenv gpu-env
+source env/bin/activate
+
+
+python 中文报错 Non-ASCII character '\xe8' in file:
+Python 默认的是ASCII  编码方式，如果出现中文会出现问题 , 使用utf-8编码方式即可解决,加在文檔開頭:
+# coding=UTF-8
+
+对于一个 Package 来说，既然 __init__.py 必须存在，并且当作为模块执行的时候，它会先执行，
+我们就应该把入口函数 main() 定义在 __init__.py 中。
+当我们使用模块方式 -m 执行的时候， __init__.py 定义了 main() 函数，
+然后在 __main__.py 中调用它，就能实现我们统一入口的目的。
+
+# use random user_agent for request
+from fake_useragent import UserAgent
+ua = UserAgent()
+session = requests.Session()
+session.headers['User-Agent'] = ua.random
+
+
+Replace multiple spaces with single space in a Text File:
+1. str.split() + str.join() 
+" ".join([i for i in mystr.split()])
+
+2. using RE
+re.sub('\s+',' ',mystr)
+
+
+Convert an Integer into 32bit Binary Python
+'{:032b}'.format(num)
+
+
+python setup tool:
+http://www.bjhee.com/setuptools.html
+
+def chunkstring(string, length):
+    return (string[0+i:length+i] for i in range(0, len(string), length))
+
+Matrix creation of n*n 
+[[next(itertools.count(0,0)) for i in range(N)] for i in range(N)]
+
+import copy

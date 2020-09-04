@@ -1,0 +1,2562 @@
+我的分機電話 : 3067  pwd 0000
+雅惠 : 3004
+ROGER.WU 吳冠漳 (IT)  5680
+
+git log -p --diff-filter=M
+
+ftp://ftp.delta.com.tw
+username/passwd : freeftp /freeftp
+
+globalFTP
+https://globalftp.deltaww.com/File/SharedVerify?id=1Lb2qh6SijXdmw58Ktz2a8O91luHf6
+username: 1Lb2qh6SijXdmw58Ktz2a8O91luHf6
+passwd: DNI20181129
+
+3F wifi :
+username / passwd :
+MediaTrek / family705
+
+delltwo : 102.239
+
+部門編號：
+PN800024	李強
+PN8000241000	Jonathan
+
+報修：
+https://idelta.deltaww.com/it/myit/publishing/
+C 區
+
+processON : draw flow chart
+
+delta dns : 
+172.16.0.1   ,  172.16.0.2
+102.239
+get FW :
+http://webftp.delta.com.tw/
+ftp://deltaftp.deltaww.com
+chambers/cisco
+
+netgearFTP:
+ftp://genuine.netgear.com/ 
+U: Delta
+P: n3tg3@r2016
+
+proxy dniserver
+10.146.180.50 (10.146.180.80)
+
+https://github.netgear.com/ORBI-ODM-DNI/Orbi-dni-rtm-ka-11.0
+
+mail : 
+https://mail.delta.com.tw/exchange
+username : delta\eric.wa.wang
+mailaddress : ERIC.WA.WANG@deltaww.com
+passwd :  Yuix1@345aaa
+
+Gary Kuo [gkuo@qti.qualcomm.com]
+
+dniserver:
+	pw1 :322B1d45 , pw2 :ericwang
+ssh/.config :
+host dniserverz
+	Hostname dniserver
+	User     ericwang
+	ForwardAgent yes
+	Port 22
+	ProxyCommand ssh ericwang@172.17.144.3 /bin/nc 192.168.10.1 %p
+				   ^proxy ip                ^host ip	
+qualcom : ID/password
+jonathan.chang@deltaww.com
+eric.wa.wang@deltaww.com/Wann31828
+
+6150v2 normalcode :	
+git fetch ssh://dniserver/scm/dnigit/common/boots/u-boot.git v2015.01-dni
+
+r9500 openwrt.git:
+git fetch ssh://dniserver/scm/dnigit/openwrt-buildroot.git/tony.he/R9500-buildroot.git r9500-br
+
+QualcomQCA mail: https://createpoint.qti.qualcomm.com/dashboard/public/
+
+Qualcom open case :
+https://qualcomm-cdmatech-support.my.salesforce.com/home/home.jsp
+
+mysql : root/admin
+
+peter : 3076
+
+R9000 borwser login :
+admin / password 
+
+use 'config show | grep "http" ' to find http_username and http_passwd   
+
+
+版子電源:
+r9500 12v
+r9000 19v
+r6150 12v
+r7000 12v
+ax6000 19V
+
+server ip :    changable   / staic
+dnismb       : 172.17.144.3    # pw1 :322B1d45
+itgserver ip : 10.137.5.201 /192.168.102.231  # git server
+dbdell       : 10.137.5.202 / 192.168.102.238  # build code
+delltwo	     : 192.168.102.239  //old server , connect to it from itgserver  , passwd:ericwang 
+hpone        : 172.16.83.235 / fixed IP 192.168.102.237, but you need to access this fixed IP via itgserver
+
+url = ssh://itgserver/pub/scm/qualcomm-lsdk/george/qsdk-ipq806x-chipcode.git
+
+
+add gateway
+ip route add 192.168.102.0/24 via 192.168.102.231
+
+remove gw
+route del -net 192.168.102.0 netmask 255.255.255.0
+
+change gateway
+by command line :
+route delete default gw 172.16.83.254
+route add default gw 172.16.83.251
+				(210)
+by configuration file /etc/network/interfaces :
+sudo vi /etc/network/interfaces
+
+dns name resolution config :
+/etc/hosts
+
+Static ip 設定方式：
+auto eth0
+iface eth0 inet static
+address 172.16.83.215   #ip 僅供參考
+netmask 255.255.255.192
+gateway 172.16.83.246
+dns-nameservers 8.8.8.8 168.95.192.1
+
+dhcp :
+auto eth0
+iface eth0 inet dhcp
+
+/etc/init.d/networking restart
+uix12#45aa
+
+tftpd server 设定：
+/etc/default/tftpd-hpa
+設定完後重啟:
+service tftpd-hpa restart
+
+使用 busybox 的 tftp 指令 :
+tftp -g -r FILENAME SERVERIP  
+ex : tftp -g -r hello 10.26.2.254
+要順便改名成 hello.elf 的話: tftp -g -l hello.elf -r hello 10.26.2.254
+
+tftp -m binary 192.168.1.1 -c put EX7700-V1.0.0.130.img
+
+git push -u origin master
+
+git diff --color --cached
+
+git archive --format=tar --prefix=mybuild HEAD | (cd /tmp/ericwang/ && tar xf -)
+
+git archive --format zip -o <filename>.zip HEAD
+
+git diff HEAD~2 HEAD -- main.c
+
+ssh :
+ git clone ssh://ericwang@172.16.83.201/pub/scm/boot/u-boot/changcs/u-boot.git
+ git fetch ssh://ericwang@172.16.83.201/pub/scm/boot/u-boot/changcs/u-boot.git r9000-hw-verify-uboot
+
+find qca/src/qca-ssdk -type f -name "*.mk" |awk '{print "git add "$1}' | sh
+
+build code server :
+dbdell : 172.16.83.202
+
+解決 /etc/resolv.conf自動被覆寫的問題(for ubuntu 12.04 or later) ：
+
+編輯 /etc/network/interfaces 網路介面的設定，在最行一行加上 DNS 位址，最多可以有三組：
+
+dns-nameservers 168.95.1.1 168.95.192.1 8.8.8.8
+
+修改設定後，重新啟動網路介面：
+
+sudo /etc/init.d/networking restart
+
+這樣就能正確指定 DNS 設定了。 
+
+itgserver800:
+192.168.102.240   #static , by itgserver
+172.16.83.220     # may be changed
+
+EEPROM : 
+itgserver : /public_share/annapurna-bring-up-binary-release
+
+R9000 firmware images can be fount at:
+    bin/annapurnalabs/uImage
+    bin/annapurnalabs/rootfs.ubi
+    bin/annapurnalabs/rootfs.ubi.md5
+
+ALPINE_DB> run kernelupd
+ALPINE_DB> run rootfsupd
+
+Bennet  r9500 , 5f
+JUNIOR.HUANG : ex8000 , orbi  HW , 5f
+
+fw_recovery
+nmrp
+
+
+R7500 bootloader cmd :
+
+printenv --> cmd : bootloader階段執行的命令流程
+
+4pin 傳輸線連接法：紅線接白點位置
+
+
+How to Check Your Disk Quota under Linux ：
+quota -v
+
+輸出訊息意義:
+blocks	Used disk space in kilobytes
+quota	Soft limit for disk usage (you can still write new files or data when exceeded but only until the grace time is up)
+limit	Hard limit for disk usage (you cannot write new files or data anymore when exceeded)
+grace	The grace time indicates the time left to remove data when you exceed the soft quota (when this time is up you cannot write new files or data anymore)
+
+
+show Disk Usage :
+For file systems without quota an alternative, slower and less accurate method to measure the used disk space is to use
+"du -sh <directory>" To count the number of files and directories you can use "find <directory> | wc -l"
+
+Example:
+ du -sh /local
+ find /local | wc -l
+
+Available Disk Space
+The total available disk space on a file system can be determined using
+"df -h <directory>"
+CIFS file systems on the ITS NAS do not show the available disk space if quotas are enabled. Instead the disk quota is shown.
+Example:
+ df -h /home/walteste
+Filesystem            Size  Used Avail Use% Mounted on
+fs.www.inf.ethz.ch:/export/services/wwwsetenv ethact al_eth0/d1/home
+                      498G  244G  255G  49% /home
+
+scp :
+1.將檔案由本機複製到遠端主機。scp FileName username@servername:/home/username/
+2. 由遠端主機複製檔案至本機。 ex : scp ericwang@172.16.83.202:/home/ericwang/standard.config .
+# ssh 預設走的 Port 為 22，如果有自訂其他 Port 可加上 -P 參數。 scp -p portnumber  
+
+
+tar :
+.tar (僅打包，無壓縮)
+套件名稱：tar。
+打包：
+tar cvf FileName.tar DirName
+解包：
+tar xvf FileName.tar
+
+.tar.gz (打包＋壓縮)
+套件名稱：gzip。
+壓縮：
+tar zcvf FileName.tar.gz DirName
+解壓縮：
+tar zxvf FileName.tar.gz
+解壓縮到指定路徑 ： -C  
+tar -C /tmp/ayu -zvxf xyz.tar.gz  #此例解壓到/tmp/ayu
+
+ root/drivers/gpio/pca953x.c
+
+R9000 Uboot :
+Steps to Upgrade U-Boot
+=======================
+
+編譯u-boot :
+./u-boot.git/tools/al_boot_v_1_65_1/build_tiger.sh 
+ 
+u-boot.git/tools/al_boot_v_1_65_1/output/boot.img 
+
+Rename the file to boot.img and then
+
+ALPINE_DB> setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10  
+ALPINE_DB> run bootupd
+ALPINE_DB> reset
+
+After reboot DUT, please run
+ALPINE_DB> run delenv
+=====================================
+ASM1182E_RST_GPIO 33
+
+scp ericwang@172.16.83.202:~/u-boot.git/tools/al_boot_v_1_65_1/output/boot.img .
+
+r9000 commit eric:40aeab269b49a58c9ccc50d203918f83a9988be9
+
+build 6150v2 :
+PATH="$PATH:/home/changcs/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/bin" make CROSS_COMPILE="arm-openwrt-linux-uclibcgnueabi-" V=1 hw29765285p16p0p256_configarch/arm/cpu/armv7/qca-hw29765352p0p4000p256p2x2p2x2p4x4/cmd_dumpqca_data.c
+
+PATH="$PATH:/home/changcs/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/bin" VERSION_CODE='Barrier Breaker unknown' REVISION='unknown' make HOSTCC=arm-openwrt-linux-uclibcgnueabi-gcc HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-uclibcgnueabi- CONFIG_QCA_SINGLE_IMG_GIT="/home/jeremy/git-home/qsdk-chipcode.git" V=1 verbose=1
+
+git archive --format=tar HEAD | (cd /tmp/ericwang/mybuild/ && tar xf -)
+git archive --format zip -o filename.zip HEAD
+
+find / -name php.ini
+build mirror :
+http://itgserver/buildtool-dl
+
+
+ cd tools/al_boot_v_1_65_1/ && \
+    ./build_alpine_hw29765235p0p512p1024p4x4p4x4.sh; \
+
+
+
+git commit message modify :orbi
+   git rebase -i HEAD~3 （修改倒數3次內的commit message） 
+   看你要修改哪个，就把那行的pick改成edit，然后退出。
+  用git commit -amend 修改
+  最後用git rebase --continue 回來 
+
+換fw: 在有新fw的console上輸入  (版子必須在tftp firmware recovery mode)
+tftp -m binary 192.168.1.1 -c put R9000-V1.0.0.22.img
+
+tftp -g -r <file_name> <tftp_server_ip>
+
+
+(IPQ40xx) # setenv machid 8010200
+(IPQ40xx) # setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+(IPQ40xx) # tftpboot 0x84000000 u-boot-single.img
+(IPQ40xx) # crc32 0x84000000 ${filesize}
+(IPQ40xx) # imgaddr=0x84000000 && source $imgaddr:script
+(IPQ40xx) # reset
+
+v6150v2 hwid:29765285+16+0+256+2x2+1x1
+29765155+32+0+256+2x2
+
+29765235+0+512+1024+4x4+4x4
+
+EX6200v2 upgrade steps:
+hwid 29765265p16p0p256p2x2p2x2
+=========================================================
+(IPQ40xx) # setenv machid 8010200
+(IPQ40xx) # setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+(IPQ40xx) # tftpboot 0x84000000 nor-ipq40xx-standard-single.img.256mb
+(IPQ40xx) # sf probe && imgaddr=0x84000000 && source $imgaddr:script
+tftpboot 0x84000000 nor-ipq40xx-standard-singleED6150.img
+
+qsdk/bin/ipq806x directory:
+■ openwrt-ipq40xx-u-boot-stripped.elf (Bootloader)
+■ openwrt-ipq806x-qcom-ipq40xx-ap.dkxx-fit-uImage.itb (Kernel + dtb)
+■ openwrt-ipq806x-squashfs-root.img (SquashFS)
+■ openwrt-ipq806x-ipq40xx-ubi-root.img (UBIF
+
+tel:
+3291
+
+啟動Apache
+sudo service apache2 start
+
+中止Apache
+sudo service apache2 stop
+
+重新啟動Apache
+sudo service apache2 restart
+
+
+[nornand orbi]
+set machid 8010001
+setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+tftpboot 0x84000000 nornand-ipq40xx-single.img
+imgaddr=0x84000000 && source $imgaddr:script
+
+
+[emmc orbi]
+ set machid 8010001
+ set ipaddr 192.168.1.1 && set serverip 192.168.1.10
+ tftpboot 0x84000000 emmc-single.img
+imgaddr=0x84000000 && source $imgaddr:script
+
+I tried the comment of  Luc Chen 4/6/2016 8:50PM   and Gary Kuo (4/6/2016 2:56 AM)
+however , it still failed when upgrading FW  emmc-single.img 
+
+
+nand scrub 0x580000 0x20000
+nand read $loadaddr 0x580000 0x20000
+
+display memory content :  md.b MEMaddress size
+md.b $loadaddr   
+
+v2015.01-dni
+hexdump -v -C -n 256 R9000-V1.0.0.22.img
+
+loadn_dniimg 0 $nand_pt_addr_kernel $loadaddr
+
+
+mirco orbi :
+hw29765641p0p256p512p2x2p2x2p2x2
+
+alpine_hw29765294p0p28p512p8x8p4x4_32_db
+
+
+cscope -Rbkq && ctags -R
+cscope -d
+
+setenv ethact al_eth0
+
+bennet :0937025489
+
+
+R9500 (128 MB NAND flash) firmware images can be fount at:
+    bin/annapurnalabs/uImage
+    bin/annapurnalabs/rootfs-128MB-nand.ubi
+    bin/annapurnalabs/rootfs-128MB-nand.ubi.md5 file
+
+ALPINE_DB> run kernelupd
+ALPINE_DB> setenv nand_pt_size_fs 0x7000000
+ALPINE_DB> run rootfsupd
+
+
+git format-patch
+patch -p1 -R 
+
+/etc/init.d/apache2 start/stop
+
+board_hw_id : 29765294+0+256+512+8x8+4x4R9500
+
+
+wireless :
+偵測不到訊號時 修改2.5g 使用 american （預設是europe）
+5G時 偵測步道訊號可把channel從低頻段改成高頻段
+
+
+unzip 解壓zip檔
+unzip test.zip
+unzip test.zip -d mydir
+
+1KB = 0x400 = 1024
+64KB = 0x10000
+128KB = 0x20000
+1MB = 0x100000
+128MB = 0x8000000
+
+
+燒wap581 normalcode
+For normal code, configure your PC's IP as 192.168.1.200 and then start tftp server.
+Copy the normal code "rootfs.bin" to tftp server folder.
+ u-boot> run flash_uap_trx
+ u-boot> run flash_uap_trx2
+ u-boot> reset
+
+
+
+請告訴我wap581 normal code  的 git Repository 及編譯FW的步驟  ,
+
+Get Source Code:
+ $ git clone ssh://[yourname]@dniserver/scm/dnigit/openwrt-buildroot.git/alime.mao/wap581-fp.git wap581-fp.git
+ $ cd wap581-fp.git
+ $ git checkout -b DNI-FP-UAP-WAP581 origin/DNI-FP-UAP-WAP581
+
+Compile:
+ $ cd ap/broadcom
+ $ ./rebuild.sh
+
+
+WAP581 ESDK:
+$ git clone ssh://[yourname]@dniserver/scm/dnigit/openwrt-buildroot.git/alime.mao/chambersbay.git wap581-esdk.git $ cd wap581-esdk.git $ git checkout -b ESDK-5.0.6 origin/ESDK-5.0.6
+
+$ cd main/components/router
+
+$ ./rebuild.sh
+
+ESDK编译出来的FW在 main/component/router/arm-uclibc/linux.trx
+flash_boot=tftp 0x4000000 uboot-nvram.bin; sf probe 0; sf erase 0 +${filesize};                    sf write ${fileaddr} 0 ${filesize} 
+
+
+esdk factory reset 
+run erase_env
+nvram erase
+
+
+server24:
+192.168.10.24
+
+build uap from broadcom VM:
+cd ap/broadcom
+make
+
+FW be built at :
+broadcom/out/bcm958535eap_sa/kernel/rootfs.bin
+
+
+before make  :
+cd ap/broadcom/out/bcm958535eap_sa/obj/kernel/northstar+b0_defconfig/
+rm .stamp.kernel
+cd northstar+b0_defconfig/arch/arm
+find -name "*.o" -print0 | xargs -0r rm -v
+
+git diff --numstat --diff-filter=[D,M,A] <branch-name>
+git diff --numstat --diff-filter=A dni-cfe |grep -v -e 29765264
+
+uap use : include/configs/bcm958625hr.h
+
+printf(__FILE__ "#%d:%s\n", __LINE__, __FUNCTION__);
+
+wap361 :
+cisco / cisco
+
+git commit --author="John Doe <john@doe.com>" -m "Impersonation is evil."
+
+ flash -noheader 192.168.1.10:hw29765264p0p128p256p2x2p2x2_cfez.bin nflash1.boot
+
+The steps of compile WAP125 CFE is as below:
+
+git clone ssh://[yourname]@dniserver/scm/dnigit/openwrt-buildroot.git/alime.mao/wap125-fp.git
+git checkout -b DNI-FP-UAP-WAP125-spartan origin/DNI-FP-UAP-WAP125-spartan
+
+cd ap/broadcom/src/cfe_rsdb/build/broadcom/bcm947xx
+./rebuild.sh
+
+
+mxic : 旺宏
+
+如果在升级过程或之后出现异常现象：
+ 
+1.  建议搭配最新的WAP125 CFE v0.4
+2.  对于有bad block的板子，在升级前使用bberase将坏块擦除。
+3.  在升级前，建议使用如下的指令将nand flash清空
+CFE> flash -erase nflash1.nvram
+CFE> flash -erase nflash1.nvram_backup
+CFE> flash -erase nflash1.trx
+CFE> flash -erase nflash1.trx2
+CFE> flash -erase nflash1.jffs2
+4.  使用指令“flash -noheader 192.168.1.10:wap125rootfs-1.0.0.1d.bin nflash1.trx”在CFE下升级
+
+
+r9500 2.4g/5g led gpio: 3 / 4
+
+
+wap125 --> hw29765264
+wap581 :   hw29765286   ,  v2012.10-dni
+
+make 2>&1 | tee build.log
+find ./ -type d -name '.git' -print0 | xargs -r0 rm -rf
+
+版號規則:
+29765352+0+4000+256+2x2+2x2+4x4
+PCB + SPI FLASH(NOR) + eMMC( or NAND) +DRAM +First Radio + Second Radio + Tri Radio
+
+
+upgrade chipcode version:
+fetch new and old branch in to a tmp git dir
+ssh -X a new session , into that dir ,gitk --all , find the concurrent parent
+
+git checkout -b merged-branch newbranch
+git checkout -b becopyed-branch  oldbranch
+git checkout  merged-branch
+git rebase concurrent-parent-commitID
+
+
+git-merge-base - Find as good common ancestors as possible for a merge
+Given two commits A and B, git merge-base A B will output a commit which is reachable from both A and B through the parent relationship.
+
+git merge-base feature master
+
+For example, with this topology:
+
+         o---o---o---B
+        /
+---o---1---o---o---o---A
+
+
+
+you need to pick the commit which doesn't appear in both branch (between merged-branch and becopyed-branch)
+--------------------------------------------------------------------
+
+vim qca/src/qca-wifi-10.4/hal/ah_regdomain.h +800    //country code
+
+orbi remove env :  delenv=sf probe && sf erase 0x000e0000 +0x10000
+
+HWID :
+PCB板號 + SPI FLASH(nor) + eMMC or nand + SDRAM + First Radio + Second Radio + Tri Radio
+
+build 4.0ES openwrt needs to be in dl foldeugr:
+bridge-utils-1.5.tar.gz  
+iw-4.7.tar.xz
+
+bugzilla tunnel :
+ssh -D 9999 ericwang@172.17.144.3 -p 22
+http://172.17.144.252/bugzilla3/show_bug.cgi
+
+
+boot from memory via tftp :
+tftp 0x84000000 openwrt-ipq806x-qcom-ipq40xx-ap.dkxx-fit-uImage.itb
+bootm 0x84000000
+
+Here are commands as below to read data from flash to PC.
+ 
+nand read <ram_addr> <flash_addr> <size>
+tftpput <ram_addr> <size> <file_name>
+ 
+For example, if you want to read file size 1040140 bytes from flash address 0x0, you can use command such as:
+ 
+nand read 0x8000000 0x0 0xfdf0c
+tftpput 0x8000000 0xfdf0c R9000_data.txt
+
+
+hidden_info.html
+
+emmc block size : 512bytes
+
+r7800 wan mac : A0:63:91:89:2C:D9
+
+
+將本地已存在的儲存庫(已有版控)，上傳至遠端儲存庫 :
+git remote add origin https://github.com/[GitHub帳號]/r3.git
+git remote -v    # 查詢遠端位置
+git push origin master
+
+若您的程式有建立其他分支或是標籤，在push時，請改成以下指令：
+git push --all
+git push --tagsartmtd 
+artmtd -r board_data
+
+
+command to crash kernel:
+echo c > /proc/sysrq-trigger
+
+*************BOARD DATA Usage:board data read:
+
+artmtd -r board_data
+
+board data write:
+
+artmtd -w board_data 1/0fex8
+
+crashdump_switch_show
+
+
+artmtd -r crash_dump
+artmtd -w crash_dump 1
+
+config set crash_dump=1 ; config commit
+config get crash_dump
+
+------------------------------------------------------
+檢查是否cal 過 
+			    2g      5g      2nd5g
+將0:ART 讀出來後 檢查位置 0x1000 , 0x5000 , 0x9000 , check 前2 byte 的值 是否為 20 2f
+mmc read 0x84000000 0x2822 0x200
+md.b 0x84001000 0x100
+
+-------------------------------------------------------
+
+grep  crash_dump /etc/init.d/boot
+    #crash trigger command: echo c > /proc/sysrq-trigger                                   
+    if [ "x$(/bin/config get crash_dump)" = "x1" ];then                                    
+        /sbin/artmtd -w crash_dump 1                                                            
+    else                                                                                        
+        /sbin/artmtd -w crash_dump 0                                                            
+    fi 
+
+
+git repo : hpone:/home/ericwang/git-home/u-boot.git
+branch : v2012.07-dni
+commit : cf3cf245e2de41746b9d0bebb9422a6305694d80
+
+倉別：成品(1010),SMT(0010)
+打到廈門: 1259  , 廈門新辦公室
+127-xxxx
+上海 ： 150-xxxx
+
+kernel magic : 0xD00DFEED
+rootfs magic : 0x68737173 , for text : hsqs
+
+HWID(HW ID)  8碼 + nor + nand(emmc) + ddr  + wifi
+wac510 : hw2976541600p2p128p256p2x2p2x2p3941314090
+mini orbi :  hw29765515p0p4096p512p2x2p2x2p2x2
+orbi desktop     :  hw29765352p32p4000p512p2x2p2x2p4x4
+business orbi : hw29765352p0p4096p512p2x2p2x2p4x4
+ex8000    :  hw29765352p32p0p512p2x2p2x2p4x4
+r9500     :  hw29765294p0p128p512p8x8p4x4
+micro orbi (RBR20 , RBS20):  hw29765641p0p256p512p2x2p2x2p2x2    , HW : Joy
+outdoor   :  hw29765619+0+256+512+2x2+2x2+4x4
+r9000     :  hw29765235p0p512p1024p4x4p4x4
+ax6000(rax120)    :  hw29765589p0p512p1024p4x4p8x8
+r7800	  :  hw29764958p0p128p512p4x4p4x4pcascade
+d7800     :  hw29764958p0p128p512p4x4p4x4pxDSL
+xr500     :  hw29764958p0p256p512p4x4p4x4pcascade
+br500     :  hw29764958p0p128p1024p0p0  , peter , nand 128mb
+ex7700    :  hw29765641p0p128p512p2x2p2x2p2x2
+orbi DT V2 : Router: hw29765913p0p512p512p2x2p2x2p4x4
+	     Satellite: 29765913+0+128+256+2x2+2x2+4x4
+	  FW : 29765352+0+4000+512+2x2+2x2+4x4
+ex8000v2  :hw29765913p32p0p512p2x2p2x2p4x4
+RBS10     :hw29766106p32p0p256p2x2p2x2
+RBR10     :hw29766105p0p128p512p2x2p2x2 
+AX3  :  hw29766097p0p512p1024p2x2p2x2p2x2
+ORBI_AX  : hw29765960p0p4000p1000p4x4p4x4p4x4
+ DR-E832AX2(Cypress) : 29766193+0+256+512+2x2+2x2
+SXK80 : hw29766265p0p512p1024p4x4p4x4p4x4
+
+dual-band 11ac Mesh HW ID如下
+Router: 29766105+0+128+512+2X2+2X2
+Satellite: 29766106+32+0+256+2X2+2X2
+ 
+
+XR500(gaming router)
+board_hw_id 29764958+0+256+512+4x4+4x4+cascade 
+board_model_id XR500
+
+
+project owner 
+
+hw29765352p32p4000p512p2x2p2x2p4x4.h
+29765352+0+4096+512+2x2+2x2+4x4
+
+Dakota chip(IPQ4018 & IPQ4019), 包含 Orbi, EX6100, EX6150, EX6200, Orbi mini.
+
+ Modify drivers/block/ahci.c to match with last merged commit 5906434
+
+:701,752s/#//g
+
+export PATH="/home/ericwang:$PATH"
+
+cd /sys/devices/soc.0/7824900.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0
+cat mmcblk0p9/uevent
+
+
+
+r9000
+Steps to upgrade u-boot:
+========================
+
+ALPINE_DB> setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+ALPINE_DB> tftpboot 0x8000000 boot.img
+ALPINE_DB> crc32 0x8000000 ${filesize}
+ALPINE_DB> nand erase 0x0 0x100000 && nand write 0x8000000 0x0 ${filesize}
+ALPINE_DB> reset
+
+Outdoor FW升级步骤如下：
+ 
+1.      Set up a TFTP server on your PC, its IP address is 192.168.1.10 Entering into boot loader
+ 
+1.        (IPQ40xx) # board_data_set 1107
+2.        (IPQ40xx) # board_hw_id_set 29765619+0+256+512+2x2+2x2+4x4
+3.        (IPQ40xx) # board_model_id_set RBS50Y
+4.        (IPQ40xx) # run delenv
+5.        (IPQ40xx) # reset
+6.        Entering into boot loader
+7.        (IPQ40xx) # setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+8.        (IPQ40xx) # saveenv
+9.         (IPQ40xx) # fw_recovery
+10.    Then the device should be in tftp recovery mode. Please run the command "tftp -i 192.168.1.1 put RBS50Y-V2.0.0.2.img " on MS-DOS of your PC.
+ 
+如果uboot没有升级到0.6
+ 
+http://webftp.delta.com.tw
+Folder: /Orbi_Outdoor/uboot/V0.6
+
+webftp :       
+User/Passwd: freeftp/dninetwork256
+ 
+升级步骤：
+1.        Set up a TFTP server on your PC, its IP address is 192.168.1.10.
+2.        Entering into boot loader
+3.        (IPQ40xx) # set machid 8010001
+4.        (IPQ40xx) # setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+5.        (IPQ40xx) # tftpboot 0x84000000 uboot-orbi-outdoor-hw29765619p0p256p512p2x2p2x2p4x4-v0.6.img
+6.        (IPQ40xx) # crc32 0x84000000 ${filesize}
+7.        (IPQ40xx) # imgaddr=0x84000000 && source $imgaddr:script
+8.        (IPQ40xx) # reset
+
+
+How to build:
+=============
+
+QSDK IPQ40XX ILQ 1.0 FC toolchain is under: "$qsdk_root/qsdk/staging_dir/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi".
+Need to add "$qsdk_root/qsdk/staging_dir/host/bin/sstrip" into "/PATH/TO/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/bin"
+
+#
+# Uncompressed u-boot image and single image without QSDK
+#
+$ export PATH="/home/jeremy/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/bin:$PATH"
+
+# (optional) Supress "STAGING_DIR" warning messages only
+$ export STAGING_DIR="/home/jeremy/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/.."
+
+$ make CROSS_COMPILE=arm-openwrt-linux-uclibcgnueabi- hw29765352p0p4096p512p2x2p2x2p4x4_config
+$ VERSION_CODE='Barrier Breaker unknown' REVISION='unknown' make HOSTCC=arm-openwrt-linux-uclibcgnueabi-gcc HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-uclibcgnueabi- CONFIG_QCA_SINGLE_IMG_GIT="/home/ericwang/git-home/qsdk-chipcode.git"
+
+U-Boot image is "u-boot-single.img".
+
+Steps to upgrade u-boot:
+========================
+
+Steps to upgrade u-boot through single image:
+=============================================
+
+(IPQ40xx) # setenv machid 8010001
+(IPQ40xx) # setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+(IPQ40xx) # tftpboot 0x84000000 u-boot-single.img
+(IPQ40xx) # crc32 0x84000000 ${filesize}
+(IPQ40xx) # imgaddr=0x84000000 && source $imgaddr:script
+(IPQ40xx) # reset
+
+
+r9000
+Steps to upgrade u-boot:
+========================
+
+ALPINE_DB> setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+ALPINE_DB> tftpboot 0x8000000 boot.img
+ALPINE_DB> crc32 0x8000000 ${filesize}
+ALPINE_DB> nand erase 0x0 0x100000 && nand write 0x8000000 0x0 ${filesize}
+ALPINE_DB> reset
+
+
+mirco orbi
+Steps to upgrade U-boot (single image file)
+===========================================
+(IPQ40xx) # set machid 8010001
+(IPQ40xx) # setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+(IPQ40xx) # tftpboot 0x84000000 u-boot-hw29765641p0p256p512p2x2p2x2p2x2-dni1-V0.1-single.img 
+(IPQ40xx) # crc32 0x84000000 ${filesize}
+(IPQ40xx) # imgaddr=0x84000000 && source $imgaddr:script
+(IPQ40xx) # reset
+(IPQ40xx) # run delenv
+
+tftpboot 0x84000000 nornand-ipq40xx-single-v0.0.1.img
+
+micro orbi Write MAC  command如下，詳細請參考附件。 
+(IPQ40xx) # board_hw_id_show
+(IPQ40xx) # board_model_id_show
+(IPQ40xx) # macset lan A0:40:A0:6E:91:A1
+(IPQ40xx) # macset wan A0:40:A0:6E:91:A2
+(IPQ40xx) # macset wlan5g A0:40:A0:6E:91:A3
+(IPQ40xx) # macset wlan2nd5g A0:40:A0:6E:91:A4
+(IPQ40xx) # macset bt A0:40:A0:6E:91:A5
+(IPQ40xx) # board_parameters_show
+
+mirco orbi
+Steps to upgrade U-boot (single image file)
+===========================================
+
+set machid 8010001
+setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+tftpboot 0x84000000 nornand-ipq40xx-single-v0.0.1.img
+imgaddr=0x84000000 && source $imgaddr:script
+reset
+
+set machid 8010001
+setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+tftpboot 0x84000000 u-boot-hw29765641p0p256p512p2x2p2x2p2x2-dni1-V0.1-single.img 
+crc32 0x84000000 ${filesize}
+imgaddr=0x84000000 && source $imgaddr:script
+reset
+
+
+
+Recover U-Boot
+==============
+
+0. Set (JP2, JP3, JP1) to (open, close, open) to boot from UART.
+
+1. Download following 3 images through xmodem:
+
+    1. stage2_xmodem_eth3_ram_loader.img
+    2. stage2.5_xmodem_loader.bin
+    3. boot.img.recovery
+
+2. Issue following commands to write U-Boot to flash.
+
+    ALPINE_DB> loadx 0x8000000
+
+    # load "boot.img" through xmodem
+
+    ALPINE_DB> crc32 0x8000000 ${filesize}
+    ALPINE_DB> nand erase 0x0 0x220000 && nand write 0x8000000 0x0 ${filesize}
+
+
+ex8000
+[    1.475310] Creating 14 MTD partitions on "spi0.0":
+[    1.480155] 0x000000000000-0x000000040000 : "0:SBL1"
+[    1.486355] 0x000000040000-0x000000060000 : "0:MIBIB"
+[    1.491513] 0x000000060000-0x0000000c0000 : "0:QSEE"
+[    1.496575] 0x0000000c0000-0x0000000d0000 : "0:CDT"
+[    1.501454] 0x0000000d0000-0x0000000e0000 : "0:DDRPARAMS"
+[    1.506892] 0x0000000e0000-0x0000000f0000 : "0:APPSBLENV"
+[    1.512317] 0x0000000f0000-0x000000170000 : "0:APPSBL"
+[    1.517534] 0x000000170000-0x000000180000 : "0:ART"
+[    1.522494] 0x000000180000-0x000000190000 : "config"
+[    1.527572] 0x000000190000-0x0000001a0000 : "pot"
+[    1.532385] 0x0000001a0000-0x0000001b0000 : "dnidata"
+[    1.537585] 0x0000001b0000-0x000001fc0000 : "0:HLOS"
+[    1.542644] 0x000000540000-0x000001fc0000 : "rootfs"
+[    1.547633] mtd: device 12 (rootfs) set to be root filesystem
+[    1.553037] 1 squashfs-split partitions found on MTD devi
+
+ex8000: collect log   2/17 pm12:18 yanhui
+
+cp -r /tmp/mnt/sda1/orbi_business_subimage_v1.0 .
+dd if=orbi_business_subimage_v1.0/gpt_main0.bin of=/dev/mmcblk0 bs=512 seek=0 count=34
+dd if=orbi_business_subimage_v1.0/sbl1_emmc.mbn.padded of=/dev/mmcblk0 bs=512 seek=34 count=1024
+dd if=orbi_business_subimage_v1.0/nand_bootconfig.bin of=/dev/mmcblk0 bs=512 seek=1058 count=1024
+dd if=orbi_business_subimage_v1.0/tz.mbn.padded of=/dev/mmcblk0 bs=512 seek=2082 count=1024
+dd if=orbi_business_subimage_v1.0/cdt-pcddr_AP.DK04.1-C1_256M16.bin.padded of=/dev/mmcblk0 bs=512 seek=4130 count=512
+dd if=orbi_business_subimage_v1.0/nand_bootconfig1.bin of=/dev/mmcblk0 bs=512 seek=5154 count=1024
+dd if=orbi_business_subimage_v1.0/openwrt-ipq40xx-u-boot-stripped.elf.padded of=/dev/mmcblk0 bs=512 seek=6690 count=2048
+
+
+# Backup ART partition
+dd if=/dev/mmcblk0p11 of=/tmp/Orbi-Pro-ART-backup
+cd /tmp/
+
+ 
+# Backup ARTMTD partition
+dd if=/dev/mmcblk0p12 of=/tmp/Orbi-Pro-ARTMTD-backup
+cd /tmp/
+tftp -p 192.168.1.10 -l Orbi-Pro-ARTMTD-backup
+
+NmrpHandler ->  UpgradeFirmwareFromNmrpServer  --new-->   TFTPSRV -> tftp_start_server -> tftp_handler
+		 NmrpState = STATE_CONFIGING  |				    
+					      | old
+					      -> TFTPGET -> TftpServerStart -> TftpServerHandler
+
+Internal error: Oops - undefined instruction: 0 [#1] PREEMPT SMP
+
+
+nc -v 192.168.1.88 80   =  telnet 192.168.1.88 80
+nc -zv 192.168.1.88 1-1024
+
+
+If use console, the below command could enable telnet.
+/usr/sbin/utelnetd -i br0  &
+ 
+This morning, I try to enable telnet without console, such as by using ThinClient, buf failed.
+May not be supported for 2000v5 by using ThinClient.
+
+env to build r9000 hwverf FW :
+
+sudo apt-get install autopoint
+sudo apt-get install automake
+sudo apt-get install autoconf
+sudo apt-get install gettext
+sudo apt-get install subversion libncurses-dev gawk sharutils autopoint
+sudo apt-get install ocaml ocaml-native-compilers camlp4-extra opam
+sudo apt-get install gcc-4.9-arm-linux-gnueabihf
+
+
+md5sum :
+create md5sum check file : md5sum filename > filename.md5
+check md5sum :  md5sum -c filename.md
+
+
+公司電話三方通話的方法:
+假設自己要串聯 A 和 B 兩方，步驟如下：
+    1. 播通 A 後，按 "轉接" / "Flash"
+    2. 播通 B 後，按 "轉接" / "Flash"，再按 `*6`
+
+    其中 "*6" 要慢慢按
+
+    - 這應該可以當做接到電話後，轉接到別人分機的方法
+
+
+
+partition table
+
+outdoor orbi: (RBS50Y)
+Creating 28 MTD partitions on "7980000.qcom,nand":
+0x000000000000-0x000000100000 : "0:SBL1"
+0x000000100000-0x000000200000 : "0:MIBIB"
+0x000000200000-0x000000300000 : "0:BOOTCONFIG"
+0x000000300000-0x000000400000 : "0:QSEE"
+0x000000400000-0x000000500000 : "0:QSEE_1"
+0x000000500000-0x000000580000 : "0:CDT"
+0x000000580000-0x000000600000 : "0:CDT_1"
+0x000000600000-0x000000680000 : "0:BOOTCONFIG1"
+0x000000680000-0x000000700000 : "0:APPSBLENV"
+0x000000700000-0x000000900000 : "0:APPSBL"
+0x000000900000-0x000000b00000 : "0:APPSBL_1"
+0x000000b00000-0x000000b80000 : "0:ART"
+0x000000b80000-0x000000c00000 : "0:ART.bak"
+0x000000c00000-0x000001000000 : "reserved4qca"
+0x000001000000-0x000001100000 : "config"
+0x000001100000-0x000001200000 : "boarddata1"
+0x000001200000-0x000001300000 : "boarddata2"
+0x000001300000-0x000002000000 : "dnidata"
+0x000002000000-0x000005200000 : "firmware"
+0x000002000000-0x0000023c0000 : "kernel"
+0x0000023c0000-0x000005200000 : "rootfs"
+mtd: device 20 (rootfs) set to be root filesystem
+1 squashfs-split partitions found on MTD device rootfs
+0x000003760000-0x000005200000 : "rootfs_data"
+mtd: find squashfs magic at 0x23c0000 of 7980000.qcom,nand
+mtd: find squashfs magic at 0x0 of rootfs
+remap_blocks_in_rootfs_partition: remapped partition rootfs: 0x0000023c0000-0x000005200000
+create_block_mapping: create logic to physic blocks mapping for rootfs
+0x000005200000-0x000008400000 : "firmware2"
+0x000005200000-0x0000055c0000 : "kernel2"
+0x0000055c0000-0x000008400000 : "rootfs2"
+mtd: find squashfs magic at 0x55c0000 of 7980000.qcom,nand
+mtd: find squashfs magic at 0x0 of rootfs2
+remap_blocks_in_rootfs_partition: remapped partition rootfs2: 0x0000055c0000-0x000008400000
+create_block_mapping: create logic to physic blocks mapping for rootfs2
+0x000008400000-0x000008700000 : "language"
+0x000008700000-0x000008800000 : "cert"
+0x000008800000-0x00000ec00000 : "ntgrdata"
+0x00000ec00000-0x000010000000 : "reserved"
+
+
+Partition layout on Micro Orbi Satellite (NAND flash 128MiB)
+====================================================
+      start-end			size		partition_name
+0x00000000-0x00100000		1MiB		0:SBL1
+0x00100000-0x00200000		1MiB		0:MIBIB
+0x00200000-0x00300000		1MiB		0:BOOTCONFIG
+0x00300000-0x00400000		1MiB		0:QSEE
+0x00400000-0x00500000		1MiB		0:QSEE_1
+0x00500000-0x00580000		512KiB		0:CDT
+0x00580000-0x00600000		512KiB		0:CDT_1
+0x00600000-0x00680000		512KiB		0:BOOTCONFIG1
+0x00680000-0x00700000		512KiB		0:APPSBLENV     #uboot-env
+0x00700000-0x00900000		2MiB		0:APPSBL        #uboot
+0x00900000-0x00b00000		2MiB		0:APPSBL_1      #uboot backup?
+0x00b00000-0x00b80000		512KiB		0:ART           #QCA-ART, only used by QCA
+			
+0x00b80000-0x00c00000		512KiB		0:ART.bak       #reserved, maybe used by QCA for ART backup
+	
+0x00c00000-0x00d00000		1MiB		config          #dni config
+0x00d00000-0x00d80000		512KiB		boarddata1      #store board parameters that will not be modified in normal operation, e.g. hw_id, model_id ant etc.
+0x00d80000-0x00dc0000		256KiB		boarddata2      #store board parameters that may be modified, e.g. boot-image
+0x00dc0000-0x00ec0000		1MiB		pot
+0x00ec0000-0x00f40000		512KiB		boarddata1.bak
+0x00f40000-0x00f80000		256KiB		boarddata2.bak
+0x00f80000-0x01280000		3MiB		language        #languages
+0x01280000-0x03080000		30MiB		ntgrdata        #netgear data (managed by ubi)
+0x03080000-0x05880000		40MiB		firmware        #firmware image
+  |- 0x03080000-0x03440000	3840KiB		kernel          #kernel of firmware
+  `- 0x03440000-0x05880000	37120KiB	rootfs          #rootfs of firmware
+0x05880000-0x08000000		39.5MiB		reserved
+
+
+
+ Partition layout on Micro Orbi Base (NAND flash 256MiB) (base uboot V0.6 or later)
+  ====================================================
+
+        start-end         size        partition_name
+
+  0x00000000-0x00100000       1MiB        0:SBL1
+
+  0x00100000-0x00200000       1MiB        0:MIBIB
+
+  0x00200000-0x00300000       1MiB        0:BOOTCONFIG
+
+  0x00300000-0x00400000       1MiB        0:QSEE
+
+  0x00400000-0x00500000       1MiB        0:QSEE_1
+
+  0x00500000-0x00580000       512KiB      0:CDT
+
+  0x00580000-0x00600000       512KiB      0:CDT_1
+
+  0x00600000-0x00680000       512KiB      0:BOOTCONFIG1
+
+  0x00680000-0x00700000       512KiB      0:APPSBLENV     #uboot-env
+
+  0x00700000-0x00900000       2MiB        0:APPSBL        #uboot
+
+  0x00900000-0x00b00000       2MiB        0:APPSBL_1      #uboot backup?
+
+  0x00b00000-0x00b80000       512KiB      0:ART           #QCA-ART, only used by QCA
+
+                  
+
+  0x00b80000-0x00c00000       512KiB      0:ART.bak       #reserved, maybe used by QCA for ART backup
+
+          
+
+  0x00c00000-0x00d00000       1MiB        config          #dni config
+
+  0x00d00000-0x00d80000       512KiB      boarddata1      #store board parameters that will not be modified in normal operation, e.g. hw_id, model_id ant etc.
+
+  0x00d80000-0x00dc0000       256KiB      boarddata2      #store board parameters that may be modified, e.g. boot-image
+
+  0x00dc0000-0x00ec0000       1MiB        pot
+
+  0x00ec0000-0x00f40000       512KiB      boarddata1.bak
+
+  0x00f40000-0x00f80000       256KiB      boarddata2.bak
+
+  0x00f80000-0x01280000       3MiB        language        #languages
+
+  0x01280000-0x01300000       512KiB      cert            #Cert file
+
+  0x01300000-0x0a600000       147MiB      ntgrdata        #netgear data (managed by ubi)
+
+  0x0a600000-0x0ce00000       40MiB       firmware        #firmware image
+
+    |- 0x0a600000-0x0a9c0000  3840KiB     kernel          #kernel of firmware
+
+    `- 0x0a9c0000-0x0ce00000  37120KiB    rootfs          #rootfs of firmware
+
+  0x0ce00000-0x10000000       50MiB       reserved
+
+
+Orbi Desktop
+    >name       offset   size
+    >{"0:SBL1", 0x22, 0x400}
+    >{"0:BOOTCONFIG", 0x422, 0x400}
+    >{"0:QSEE", 0x822, 0x400}
+    >{"0:QSEE_ALT", 0xC22, 0x400}
+    >{"0:CDT", 0x1022, 0x200}
+    >{"0:CDT_ALT",0x1222, 0x200}
+    >{"0:DDRPARAMS",0x1422, 0x200}
+    >{"0:APPSBLENV", 0x1622, 0x200}
+    >{"0:APPSBL", 0x1822, 0x800}
+    >{"0:APPSBL_ALT", 0x2022, 0x800}
+    >{"0:ART", 0x2822, 0x200}
+    >{"ART.bak", 0x2A22, 0x200}
+    >{"language",0x2C22, 0x1000}
+    >{"config",  0x3C22, 0x200}
+    >{"pot",     0x3E22, 0x200}
+    >{"traffic_meter", 0x4022, 0x200}
+    >{"pot_bak", 0x4222, 0x200}
+    >{"traffic_meter.bak", 0x4422, 0x200}
+    >{"kernel",  0x4622, 0x1D00}
+    >{"rootfs",  0x6322, 0xD400}
+    >{"firmware",0x4622, 0xF100}
+    >{"mtdoops", 0x13722, 0x200}
+    >{"reserved",0x13922, 0x2B70FF}
+    >
+
+XR500  256MB Flash Partition
+=====================
+mtd0  : 0x00000000-0x00c80000 (12800K) : "qcadata"
+mtd1  : 0x00c80000-0x01180000 (5120K) : "APPSBL"
+mtd2  : 0x01180000-0x01200000 (512K)  : "APPSBLENV"
+mtd3  : 0x01200000-0x01340000 (1280K) : "ART"
+mtd4  : 0x01340000-0x01480000 (1280K) : "ART.bak"
+mtd8  : 0x01480000-0x04680000 (51200K) : "firmware"
+   |- mtd5  : 0x01480000-0x016a0000 (2176K)  : "kernel"
+   \- mtd6  : 0x016a0000-0x04680000 (49024K) : "rootfs"
+mtd7  : 0x04680000-0x0e680000 (163840K)   : "netgear" # UBI device
+   |- mtd15 : 0x0005d000 (174K)   : "pot.bak"
+   |- mtd16 : 0x001b2000 (1736K)  : "traffic_meter"
+   |- mtd17 : 0x001b2000 (1736K)  : "traffic_meter.bak"
+   |- mtd18 : 0x001b2000 (1736K)  : "dongle"
+   \- mtd19 : 0x037b4000 (57040K) : "overlay_volume"
+mtd9  : 0x0e680000-0x0e700000 (512K)  : "crashdump"
+mtd10 : 0x0e700000-0x0ea80000 (3584K) : "language"
+mtd11 : 0x0ea80000-0x0eba0000 (1152K) : "config"
+mtd12 : 0x0eba0000-0x0ecc0000 (1152K) : "pot"
+mtd13 : 0x0ecc0000-0x0ed40000 (512K)  : "cert"
+
+
+flash_type :
+
+0  :  nor
+1  :  emmc
+2  :  nand
+6  : SMEM_BOOT_SPI_FLASH (spi nor)
+
+XR500(gaming router)  VPN cerfi : 
+
+setenv serverip 192.168.1.10
+setenv ipaddr 192.168.1.1
+mw.b 0x42000000 0xff 0x20000 && tftpboot 0x42000000 openvpn_keys.tar.gz
+nand erase 0x0ecc0000 0x80000
+nand write 0x42000000 0x0ecc0000 0x20000
+ 
+mw.b 0x41000000 0xff 0x20000 && nand read 0x41000000 0x0ecc0000 0x20000
+mw.b 0x42000000 0xff 0x20000 && tftpboot 0x42000000 openvpn_keys.tar.gz
+cmp.b 0x41000000 0x4200000f ${filesize}
+
+
+Start MongoDB.
+
+Issue the following command to start mongod:
+
+sudo service mongod start
+
+2
+Verify that MongoDB has started successfully
+
+Verify that the mongod process has started successfully by checking the contents of the log file at /var/log/mongodb/mongod.log for a line reading
+
+[initandlisten] waiting for connections on port <port>
+
+where <port> is the port configured in /etc/mongod.conf, 27017 by default.
+3
+Stop MongoDB.
+
+As needed, you can stop the mongod process by issuing the following command:
+
+sudo service mongod stop
+
+4
+Restart MongoDB.
+
+Issue the following command to restart mongod:
+
+sudo service mongod restartpro
+
+
+According to QCA Terrence Lu's comment in CDMATech Case 01958868, following Linux kernel configs should be set to enable crashdump function:
+
+    CONFIG_MSM_DLOAD_MODE=y
+    CONFIG_MSM_DLOAD_MODE_APPSBL=y
+
+
+產生public / private keypro
+ssh-keygen -t rsa
+
+
+
+flash type :
+0  :  nor
+1  : emmc
+2  : nand
+
+
+R9000 partition table :
+    >[   66.231630] Creating 13 MTD partitions on "Alpine nand flash":
+    >[   66.237452] 0x000000000000-0x0000001e0000 : "u-boot"
+    >[   66.242709] 0x0000001e0000-0x000000300000 : "u-boot-env"
+    >[   66.248295] 0x000000300000-0x000000440000 : "ART"
+    >[   66.253261] 0x000000440000-0x000000580000 : "ART.bak"
+    >[   66.258582] 0x000000580000-0x000000d80000 : "kernel"
+    >[   66.263815] 0x000000d80000-0x00000a380000 : "rootfs"
+    >[   66.283717] 0x000000580000-0x00000a380000 : "firmware"
+    >[   66.289163] 0x00000a380000-0x00000e800000 : "netgear"
+    >[   66.294496] 0x00000e800000-0x00001f9c0000 : "reserve"
+    >[   66.299856] 0x00001f9c0000-0x00001fa40000 : "crashdump"
+    >[   66.305323] 0x00001fa40000-0x00001fdc0000 : "language"
+    >[   66.310717] 0x00001fdc0000-0x00001fee0000 : "config"
+    >[   66.315920] 0x00001fee0000-0x000020000000 : "pot"
+
+
+AX6000 legacy
+	   0x00000000-0x00100000     1MiB      0:SBL1
+           0x00100000-0x00200000     1MiB      0:MIBIB
+           0x00200000-0x00280000     512KiB    0:BOOTCONFIG
+           0x00280000-0x00300000     512KiB    0:BOOTCONFIG1
+           0x00300000-0x00600000     3MiB      0:QSEE
+           0x00600000-0x00900000     3MiB      0:QSEE_1
+           0x00900000-0x00980000     512KiB    0:DEVCFG
+           0x00980000-0x00a00000     512KiB    0:DEVCFG_1
+           0x00a00000-0x00a80000     512KiB    0:APDP
+           0x00a80000-0x00b00000     512KiB    0:APDP_1
+           0x00b00000-0x00b80000     512KiB    0:RPM
+           0x00b80000-0x00c00000     512KiB    0:RPM_1
+           0x00c00000-0x00c80000     512KiB    0:CDT
+           0x00c80000-0x00d00000     512KiB    0:CDT_1
+           0x00d00000-0x00d80000     512KiB    0:APPSBLENV
+           0x00d80000-0x00e80000     1MiB      0:APPSBL
+           0x00e80000-0x00f80000     1MiB      0:APPSBL_1
+           0x00f80000-0x01000000     512KiB    0:ART
+           0x01000000-0x01080000     512KiB    0:ART.bak
+           0x01080000-0x01180000     1MiB      config           #dni config
+           0x01180000-0x01280000     1MiB      boarddata1       #store board parameters that will not be modified in normal operation, e.g. hw~
+           0x01280000-0x01380000     1MiB      boarddata2       #store board parameters that may be modified, e.g. boot-image
+           0x01380000-0x01480000     1MiB      pot              #pot data
+           0x01480000-0x01980000     5MiB      dnidata          #dni data (managed by ubi)
+           0x01980000-0x04b80000     50MiB     firmware         #firmware1 image
+            |- 0x01980000-0x01d40000 3840KiB   kernel           #kernel of firmware1
+            `- 0x01d40000-0x04b80000 47360KiB  rootfs           #rootfs of firmware1
+           0x04b80000-0x07d80000     50MiB     firmware2        #firmware2 image (for dual firmware)
+            |- 0x04b80000-0x04f40000 3840KiB   kernel2          #kernel of firmware2
+            `- 0x04f40000-0x07d80000 47360KiB  rootfs2          #rootfs of firmware2
+           0x07d80000-0x08100000     3584KiB   language         #languages
+           0x08100000-0x08200000     1MiB      cert             #vpn certificate
+           0x08200000-0x08280000     512KiB    mtdoops          #crash dump data
+           0x08280000-0x0b480000     50MiB     ntgrdata         #netgear data (managed by ubi)
+           0x0b480000-0x10000000     75MiB     reserved
+
+
+AX6000 NEW
+====================================================
+      start-end             size(MB)   partition_name
+ 0x00000000-0x00100000        1        0:SBL1
+ 0x00100000-0x00200000        1        0:MIBIB
+ 0x00200000-0x00280000        0.5      0:BOOTCONFIG
+ 0x00280000-0x00300000        0.5      0:BOOTCONFIG1
+ 0x00300000-0x00600000        3        0:QSEE
+ 0x00600000-0x00900000        3        0:QSEE_1
+ 0x00900000-0x00980000        0.5      0:DEVCFG
+ 0x00980000-0x00a00000        0.5      0:DEVCFG_1
+ 0x00a00000-0x00a80000        0.5      0:APDP
+ 0x00a80000-0x00b00000        0.5      0:APDP_1
+ 0x00b00000-0x00b80000        0.5      0:RPM
+ 0x00b80000-0x00c00000        0.5      0:RPM_1
+ 0x00c00000-0x00c80000        0.5      0:CDT
+ 0x00c80000-0x00d00000        0.5      0:CDT_1
+ 0x00d00000-0x00d80000        0.5      0:APPSBLENV
+ 0x00d80000-0x00e80000        1        0:APPSBL
+ 0x00e80000-0x00f80000        1        0:APPSBL_1
+ 0x00f80000-0x01000000        0.5      0:ART
+ 0x01000000-0x01080000        0.5      0:ART.bak
+ 0x01080000-0x01180000        1        config           #dni config
+ 0x01180000-0x01280000        1        boarddata1       #store board parameters that will not be modified in normal operation, e.g. hw_id, model_id ant etc.
+ 0x01280000-0x01380000        1        boarddata2       #store board parameters that may be modified, e.g. boot-image
+ 0x01380000-0x01480000        1        pot
+ 0x01480000-0x01980000        5        dnidata
+ 0x01980000-0x05f80000       70        firmware         #firmware1 image
+ |- 0x01980000-0x1e800000     5        |- kernel        #kernel of firmware
+  `- 0x01e80000-0x5f800000   65         `- rootfs       #rootfs of firmware
+ 0x05f80000-0x06300000        3.5      language         #languages
+ 0x06300000-0x06400000        1        cert             #vpn certificate
+ 0x06400000-0x06480000        0.5      mtdoops          #crash dump data
+ 0x06480000-0x06680000        2        router_analytics
+ 0x06680000-0x0b680000       80        ntgrdata
+ 0x0b680000-0x10000000       73.5      reserved
+
+
+ps aux | grep ssh | grep -v "grep"
+
+soxi -D *.wav | awk '{s+=$1} END {print s}'
+
+while true; do ./my_script.sh; sleep 60;done
+
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+
+add Jquery in console :
+var jq = document.createElement('script');
+jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js";
+document.getElementsByTagName('head')[0].appendChild(jq);
+
+jQuery.noConflict();
+
+iteral add object to a array
+var arr = [];
+var len = oFullResponse.results.length;
+for (var i = 0; i < len; i++) {
+    arr.push({
+        key: oFullResponse.results[i].label,
+        sortable: true,
+        resizeable: true
+    });
+}
+
+175.98.141.254
+
+br500 mtest 
+mtest 0x40000000 0x7fe00000 0xdeadc0de 0x4
+mtest 0x7fff0000 0x80000000 0xdeadc0de 0x4
+
+
+ # 下載圖片
+        get_pic = requests.get(pic_src, headers=headers, stream=True)
+        f = open(pic_name, 'wb')
+        shutil.copyfileobj(get_pic.raw, f)
+        f.close()
+        del get_pic
+
+
+ubuntu 14.04 , 16.04 中文亂碼 ：
+ $ gsettings set org.gnome.gedit.preferences.encodings candidate-encodings "['UTF-8', 'BIG5', 'BIG5-HKSCS', 'EUC-TW', 'GB18030', 'GB2312', 'GBK', 'CURRENT', 'ISO-8859-15', 'UTF-16']"
+
+若要還原預設值，執行下面的指令
+    $ gsettings reset org.gnome.gedit.preferences.encodings candidate-encodings
+
+exe py in python shell :
+exec(open("C:\\test.py").read())
+
+
+name                                                             addr                    length
+
+bootpart                                                      0x1200000            1
+
+LED_mode_flag                                          0x1200001            16
+
+default_LED_mode_flag                             0x1200011            16
+
+mode flag                                                0x1200021           1
+
+Product_line1_partition_name         0x1200022            16
+
+Product_line2_partition_name         0x1200032            16
+
+
+AX6000 512NAND
+[    4.241635] Creating 33 MTD partitions on "qcom_nand.0":
+[    4.247808] 0x000000000000-0x000000100000 : "0:SBL1"
+[    4.254143] 0x000000100000-0x000000200000 : "0:MIBIB"
+[    4.258973] 0x000000200000-0x000000280000 : "0:BOOTCONFIG"
+[    4.263621] 0x000000280000-0x000000300000 : "0:BOOTCONFIG1"
+[    4.268988] 0x000000300000-0x000000600000 : "0:QSEE"
+[    4.276039] 0x000000600000-0x000000900000 : "0:QSEE_1"
+[    4.281197] 0x000000900000-0x000000980000 : "0:DEVCFG"
+[    4.284629] 0x000000980000-0x000000a00000 : "0:DEVCFG_1"
+[    4.289756] 0x000000a00000-0x000000a80000 : "0:APDP"
+[    4.295223] 0x000000a80000-0x000000b00000 : "0:APDP_1"
+[    4.300164] 0x000000b00000-0x000000b80000 : "0:RPM"
+[    4.305114] 0x000000b80000-0x000000c00000 : "0:RPM_1"
+[    4.309885] 0x000000c00000-0x000000c80000 : "0:CDT"
+[    4.315096] 0x000000c80000-0x000000d00000 : "0:CDT_1"
+[    4.319780] 0x000000d00000-0x000000d80000 : "0:APPSBLENV"
+[    4.324996] 0x000000d80000-0x000000e80000 : "0:APPSBL"
+[    4.330678] 0x000000e80000-0x000000f80000 : "0:APPSBL_1"
+[    4.335742] 0x000000f80000-0x000001000000 : "0:ART"
+[    4.340869] 0x000001000000-0x000001080000 : "0:ART.bak"
+[    4.345492] 0x000001080000-0x000001180000 : "config"
+[    4.350985] 0x000001180000-0x000001280000 : "boarddata1"
+[    4.356202] 0x000001280000-0x000001380000 : "boarddata2"
+[    4.361492] 0x000001380000-0x000001480000 : "pot"
+[    4.366801] 0x000001480000-0x000001980000 : "dnidata"
+[    4.373806] 0x000001980000-0x000007d80000 : "firmware"
+[    4.436387] 0x000001980000-0x000001ea0000 : "kernel"
+[    4.439840] 0x000001ea0000-0x000007d80000 : "rootfs"
+[    4.498039] mtd: device 26 (rootfs) set to be root filesystem
+[    4.498350] mtd: find squashfs magic at 0x1ea0000 of qcom_nand.0
+[    4.502760] mtd: find squashfs magic at 0x0 of rootfs
+[    4.508826] remap_blocks_in_rootfs_partition: remapped partition rootfs: 0x000001ea0000-0x000007d80000
+[    4.513786] create_block_mapping: create logic to physic blocks mapping for rootfs
+[    4.580448] 0x000007d80000-0x000008100000 : "language"
+[    4.582913] 0x000008100000-0x000008200000 : "cert"
+[    4.585393] 0x000008200000-0x000008280000 : "mtdoops"
+[    4.589867] 0x000008280000-0x000008480000 : "router_analytics"
+[    4.595918] 0x000008480000-0x00000d480000 : "ntgrdata"
+[    4.649025] 0x00000d480000-0x000020000000 : "reserved"
+
+我們部門(PN800024) 要採購兩顆DDR 做BR500 開機測試用，請幫忙開單 , 感謝
+
+品名 ：  2610981399  NT5CC256M16EP-EK   *   R_   IC DDR3 SDRAM 256M*16 1.07nS VFBGA-96B
+用途  : BR500 1G DDR 開機測試用
+數量 ： 2
+
+artmtd -w board_hw_id 29764958+0+128+1024+0+0
+artmtd -w board_model_id BR50
+
+
+outdoor show uboot version:
+strings /dev/mtdblock9 |  grep "U-boot dni1" | cut -d ' ' -f 3 
+
+upgrade AQR111 F/W manually on “DNI F/W ：
+Suppose new Aquantia FW is "AQR-new-image.cld" and IP of your TFTP server is 192.168.1.200, commands to load Aquantia FW are as follows:
+ 
+    cd /lib/firmware/
+    tftp -g 192.168.1.200 -r AQR-new-image.cld
+    ln -sf AQR-new-image.cld AQR_phy_firmware
+ 
+    aq-fw-download /lib/firmware/AQR_phy_firmware miireg 7
+    sleep 1
+    ssdk_sh debug phy set 7 0x4004c441 0x8
+
+RBS50Y (outdoor 含 ext)
+Creating 37 MTD partitions on "7980000.qcom,nand":
+0x000000000000-0x000000100000 : "0:SBL1"
+0x000000100000-0x000000200000 : "0:MIBIB"
+0x000000200000-0x000000300000 : "0:BOOTCONFIG"
+0x000000300000-0x000000400000 : "0:QSEE"
+0x000000400000-0x000000500000 : "0:QSEE_1"
+0x000000500000-0x000000580000 : "0:CDT"
+0x000000580000-0x000000600000 : "0:CDT_1"
+0x000000600000-0x000000680000 : "0:BOOTCONFIG1"
+0x000000680000-0x000000700000 : "0:APPSBLENV"
+0x000000700000-0x000000900000 : "0:APPSBL"
+0x000000900000-0x000000b00000 : "0:APPSBL_1"
+0x000000b00000-0x000000b80000 : "0:ART"
+0x000000b80000-0x000000c00000 : "0:ART.bak"
+0x000000c00000-0x000001000000 : "reserved4qca"
+0x000001000000-0x000001100000 : "config"
+0x000001100000-0x000001200000 : "boarddata1"
+0x000001200000-0x000001300000 : "boarddata2"
+0x000001300000-0x000002000000 : "dnidata"
+0x000002000000-0x000005200000 : "firmware"
+0x000002000000-0x0000023c0000 : "kernel"
+0x0000023c0000-0x000005200000 : "rootfs"
+mtd: device 20 (rootfs) set to be root filesystem
+1 squashfs-split partitions found on MTD device rootfs
+0x000003f00000-0x000005200000 : "rootfs_data"
+mtd: find squashfs magic at 0x23c0000 of 7980000.qcom,nand
+mtd: find squashfs magic at 0x0 of rootfs
+remap_blocks_in_rootfs_partition: remapped partition rootfs: 0x0000023c0000-0x000005200000
+create_block_mapping: create logic to physic blocks mapping for rootfs
+0x000005200000-0x000008400000 : "firmware2"
+0x000005200000-0x0000055c0000 : "kernel2"
+0x0000055c0000-0x000008400000 : "rootfs2"
+scan_rootfs_header: no squashfs found in partition rootfs2 of 7980000.qcom,nand
+0x000008400000-0x000008700000 : "language"
+0x000008700000-0x000008800000 : "cert"
+0x000008800000-0x00000ce00000 : "ntgrdata"
+0x00000ce00000-0x00000d000000 : "rae"
+0x00000d000000-0x00000d800000 : "reserved"
+0x00000d800000-0x00000d900000 : "config_ext"
+0x00000d900000-0x00000db80000 : "reserved_ext"
+0x00000db80000-0x00000de80000 : "language_ext"
+0x00000de80000-0x00000e380000 : "ntgrdata_ext"
+0x00000e380000-0x00000e580000 : "rae_ext"
+0x00000e580000-0x00000ff80000 : "firmware_ext"
+0x00000e580000-0x00000e900000 : "kernel_ext"
+0x00000e900000-0x00000ff00000 : "rootfs_ext"
+boot_from_dni_dual_firmware: boot partition index in b
+
+
+use RBR50(V2) partition table
+26 ofpart partitions found on MTD device 7980000.qcom,nand
+Creating 26 MTD partitions on "7980000.qcom,nand":
+0x000000000000-0x000000100000 : "0:SBL1"
+0x000000100000-0x000000200000 : "0:MIBIB"
+0x000000200000-0x000000300000 : "0:BOOTCONFIG"
+0x000000300000-0x000000400000 : "0:QSEE"
+0x000000400000-0x000000500000 : "0:QSEE_1"
+0x000000500000-0x000000580000 : "0:CDT"
+0x000000580000-0x000000600000 : "0:CDT_1"
+0x000000600000-0x000000680000 : "0:BOOTCONFIG1"
+0x000000680000-0x000000700000 : "0:APPSBLENV"
+0x000000700000-0x000000900000 : "0:APPSBL"
+0x000000900000-0x000000b00000 : "0:APPSBL_1"
+0x000000b00000-0x000000b80000 : "0:ART"
+0x000000b80000-0x000000c00000 : "0:ART.bak"
+0x000000c00000-0x000000d00000 : "config"
+0x000000d00000-0x000000d80000 : "boarddata1"
+0x000000d80000-0x000000dc0000 : "boarddata2"
+0x000000dc0000-0x000000ec0000 : "pot"
+0x000000ec0000-0x000000f40000 : "boarddata1.bak"
+0x000000f40000-0x000000f80000 : "boarddata2.bak"
+0x000000f80000-0x000001480000 : "language"
+0x000001480000-0x000001500000 : "cert"
+0x000001500000-0x00000a800000 : "ntgrdata"
+0x00000a800000-0x00000d000000 : "firmware"
+0x00000a800000-0x00000abc0000 : "kernel"
+0x00000aac0000-0x00000cf00000 : "rootfs"
+mtd: device 24 (rootfs) set to be root filesystem
+mtdsplit: no squashfs found in "rootfs"
+mtdsplit: no squashfs found in "7980000.qcom,nand"
+mtd: find squashfs magic at 0xabc0000 of 7980000.qcom,nand
+mtd: find squashfs magic at 0x100000 of rootfs
+remap_blocks_in_rootfs_partition: remapped partition rootfs: 0x00000abc0000-0x00000cf00000
+create_block_mapping: create logic to physic blocks mapping for rootfs
+0x00000d000000-0x000020000000 : "reserved"
+
+RAX120 :
+4.361643] Creating 33 MTD partitions on "qcom_nand.0":
+[    4.367813] 0x000000000000-0x000000100000 : "0:SBL1"
+[    4.374136] 0x000000100000-0x000000200000 : "0:MIBIB"
+[    4.379009] 0x000000200000-0x000000280000 : "0:BOOTCONFIG"
+[    4.383623] 0x000000280000-0x000000300000 : "0:BOOTCONFIG1"
+[    4.389007] 0x000000300000-0x000000600000 : "0:QSEE"
+[    4.395992] 0x000000600000-0x000000900000 : "0:QSEE_1"
+[    4.401186] 0x000000900000-0x000000980000 : "0:DEVCFG"
+[    4.404636] 0x000000980000-0x000000a00000 : "0:DEVCFG_1"
+[    4.409750] 0x000000a00000-0x000000a80000 : "0:APDP"
+[    4.415219] 0x000000a80000-0x000000b00000 : "0:APDP_1"
+[    4.420168] 0x000000b00000-0x000000b80000 : "0:RPM"
+[    4.425113] 0x000000b80000-0x000000c00000 : "0:RPM_1"
+[    4.429892] 0x000000c00000-0x000000c80000 : "0:CDT"
+[    4.435106] 0x000000c80000-0x000000d00000 : "0:CDT_1"
+[    4.439778] 0x000000d00000-0x000000d80000 : "0:APPSBLENV"
+[    4.445004] 0x000000d80000-0x000000e80000 : "0:APPSBL"
+[    4.450678] 0x000000e80000-0x000000f80000 : "0:APPSBL_1"
+[    4.455767] 0x000000f80000-0x000001000000 : "0:ART"
+[    4.460882] 0x000001000000-0x000001080000 : "0:ART.bak"
+[    4.465489] 0x000001080000-0x000001180000 : "config"
+[    4.470998] 0x000001180000-0x000001280000 : "boarddata1"
+[    4.476212] 0x000001280000-0x000001380000 : "boarddata2"
+[    4.481500] 0x000001380000-0x000001480000 : "pot"
+[    4.486806] 0x000001480000-0x000001980000 : "dnidata"
+[    4.493845] 0x000001980000-0x000007d80000 : "firmware"
+[    4.557006] 0x000001980000-0x000001f60000 : "kernel"
+[    4.560952] 0x000001f60000-0x000007d80000 : "rootfs"
+[    4.618883] mtd: device 26 (rootfs) set to be root filesystem
+[    4.619189] mtd: find squashfs magic at 0x1f60000 of qcom_nand.0
+[    4.623600] mtd: find squashfs magic at 0x0 of rootfs
+[    4.629668] remap_blocks_in_rootfs_partition: remapped partition rootfs: 0x000001f60000-0x000007d80000
+[    4.634630] create_block_mapping: create logic to physic blocks mapping for rootfs
+[    4.701490] 0x000007d80000-0x000008100000 : "language"
+[    4.703965] 0x000008100000-0x000008200000 : "cert"
+[    4.706450] 0x000008200000-0x000008280000 : "mtdoops"
+[    4.710905] 0x000008280000-0x000008480000 : "router_analytics"
+[    4.716969] 0x000008480000-0x000009880000 : "ntgrdata"
+[    4.733740] 0x000009880000-0x000020000000 : "reserved"
+
+RBS10 :
+    0x000000000000-0x000000040000 : "0:SBL1"
+    0x000000040000-0x000000060000 : "0:MIBIB"
+    0x000000060000-0x0000000c0000 : "0:QSEE"
+    0x0000000c0000-0x0000000d0000 : "0:CDT"
+    0x0000000d0000-0x0000000e0000 : "0:DDRPARAMS"
+    0x0000000e0000-0x0000000f0000 : "0:APPSBLENV"
+    0x0000000f0000-0x000000170000 : "0:APPSBL"
+    0x000000170000-0x000000180000 : "0:ART"
+    0x000000180000-0x0000001c0000 : "config"
+    0x0000001c0000-0x0000001d0000 : "pot"
+    0x0000001d0000-0x0000001e0000 : "boarddata1"
+    0x0000001e0000-0x0000003e0000 : "language"
+    0x0000003e0000-0x0000003f0000 : "oopsdump"
+    0x0000003f0000-0x000002000000 : "firmware"
+    0x0000003f0000-0x000000780000 : "kernel"
+    0x000000780000-0x000002000000 : "rootfs"
+
+AX3 Flash Partition Table如下所示:
+DR-E834AX3 Flash Partition Table:
+0x000000000000-0x000000100000 : "0:SBL1"
+0x000000100000-0x000000200000 : "0:MIBIB"
+0x000000200000-0x000000280000 : "0:BOOTCONFIG"
+0x000000280000-0x000000300000 : "0:BOOTCONFIG1"
+0x000000300000-0x000000600000 : "0:QSEE"
+0x000000600000-0x000000900000 : "0:QSEE_1"
+0x000000900000-0x000000980000 : "0:DEVCFG"
+0x000000980000-0x000000a00000 : "0:DEVCFG_1"
+0x000000a00000-0x000000a80000 : "0:APDP"
+0x000000a80000-0x000000b00000 : "0:APDP_1"
+0x000000b00000-0x000000b80000 : "0:RPM"
+0x000000b80000-0x000000c00000 : "0:RPM_1"
+0x000000c00000-0x000000c80000 : "0:CDT"
+0x000000c80000-0x000000d00000 : "0:CDT_1"
+0x000000d00000-0x000000d80000 : "0:APPSBLENV"
+0x000000d80000-0x000000e80000 : "0:APPSBL"
+0x000000e80000-0x000000f80000 : "0:APPSBL_1"
+0x000000f80000-0x000001000000 : "0:ART"
+0x000001000000-0x000001900000 : "0:WIFIFW"
+0x000001900000-0x000002200000 : "0:WIFIFW_1"
+0x000002200000-0x000002280000 : "0:ETHPHYFW"
+0x000002280000-0x000002300000 : "0:ART.bak"
+0x000002300000-0x000002400000 : "config"
+0x000002400000-0x000002500000 : "boarddata1"
+0x000002500000-0x000002600000 : "boarddata2"
+0x000002600000-0x000002700000 : "pot"
+0x000002700000-0x000002800000 : "boarddata1.bak"
+0x000002800000-0x000002900000 : "boarddata2.bak"
+0x000002900000-0x000008d00000 : "firmware"
+0x000002900000-0x000002e60000 : "kernel"
+0x000002e60000-0x000008d00000 : "rootfs"
+0x000008d00000-0x00000f100000 : "firmware2"
+0x000008d00000-0x000009260000 : "kernel2"
+0x000009260000-0x00000f100000 : "rootfs2"
+0x00000f100000-0x00000f600000 : "language"
+0x00000f600000-0x00000f700000 : "cert"
+0x00000f700000-0x00000f780000 : "mtdoops"
+0x00000f780000-0x000012980000 : "ntgrdata"
+0x000012980000-0x000020000000 : "reserved"
+
+ssh keygen 免輸入密碼
+懶得打密碼, 以 key 做認證登錄.
+
+步驟如下:
+
+    ssh-keygen -t rsa 或 ssh-keygen -d (dsa) => 產生出 id_rsa, id_rsa.pub
+    scp id_rsa.pub server_hostname:~/.ssh/
+    ssh server_hostname
+    cat .ssh/id_rsa.pub >> .ssh/authorized_keys 即可
+    這樣子就可以 key 認證登入, 不需輸入密碼.
+
+Netbridge :  台北市中山區吉林路245號6樓
+
+DNIsoftware1!
+
+memory test :
+(IPQ40xx) # mtest 0x80000000 0x87100000 0xaa55aa55 0x3
+Pattern AA55AA54  Writing...  Reading...Tested 3 iteration(s) with 0 errors.
+(IPQ40xx) # mtest 0x88000000 0xa0000000 0xaa55aa55 0x3
+Pattern AA55AA54  Writing...  Reading...Tested 3 iteration(s) with 0 errors.
+(IPQ40xx) # 
+
+# 重新導向輸出
+
+nohup <my_command> >> my.log-1026 2>&1 &
+echo $! > save_pid.txt
+
+kill -9 `cat save_pid.txt`
+rm save_pid.txt
+
+To do the same thing in Linux, do the following:
+1. Uninstall TeamViewer using "yum remove", "apt" or the distribution-specific uninstall tool
+2. As root, do:
+cd /
+find . |grep -i teamviewer
+go to each directory and delete the remaining references to TeamViewer
+3. Change the MAC address using the process described here: https://en.wikibooks.org/wi...
+4. Reinstall TeamViewer and connect to a remote machine
+5. The error about Commercial Use Suspected' should be gone
+
+mac change :
+macchanger --mac=3c:97:0e:e9:72:d7 eth0
+
+
+
+switch jdk :
+List all java versions:
+update-java-alternatives --list
+Set java version as default :
+sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+sudo update-alternatives --config java
+
+
+当一个完整的数据集通过了神经网络一次并且返回了一次，这个过程称为一个 epoch
+比如对于一个有 2000 个训练样本的数据集。将 2000 个样本分成大小为 500 的 batch，
+那么完成一个 epoch 需要 4 个 iteration。
+
+batch change sample rate by SOX
+for f in wav-44100/*.wav; do sox "$f" -r 22050 "fwd_dir/$f"; done
+
+Get total duration of video files in a directory
+find . -maxdepth 1 -iname '*.wav' -exec ffprobe -v quiet -of csv=p=0 -show_entries format=duration {} \; | paste -sd+ -| bc
+
+
+cd /path/to/your/folder
+sed -i 's/foo/bar/g' *
+
+fetch ipv6 ip :
+lan_ipv6addr=$(ifconfig $bridge | grep "inet6 addr" | awk '{print $3}')
+
+get kernel version : kernel_version=`uname -a | awk -F " " '{print $3}'`
+
+
+在所有的 .c 檔案中搜尋 stdlib.h 這個字串，就可以使用
+find . -name '*.c' | xargs grep 'stdlib.h'
+
+How to tell if tensorflow is using gpu acceleration from inside python shell ?
+
+import tensorflow as tf
+with tf.device('/gpu:0'):
+    a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+    b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+    c = tf.matmul(a, b)
+
+with tf.Session() as sess:
+    print (sess.run(c))
+# If you have a gpu and can use it, you will see the result. Otherwise you will see an error with a long stacktrace
+
+
+How to strip multiple spaces to one using sed?
+sed 's/  */ /g'
+
+
+enable openvpn :
+cd ~/certificate
+sudo openvpn --config roadwarrior-client.ovpn
+
+串接一個資料夾的全部 wav 
+printf "file %s\n" *.wav > list.txt
+ffmpeg -f concat -i list.txt -c copy demo.wav
+
+Abort makefile if variable not set :
+	ifndef MY_FLAG
+	$(error MY_FLAG is not set)
+	endif
+
+mount sshfs :
+sshfs NAME@HOST:/path/to/folder remote_disk
+check mount : mount
+unmount :
+fusermount -u remote_disk
+
+
+How do I make Git use the editor of my choice for commits?
+
+    Set core.editor in your Git config: git config --global core.editor "vim"
+    Set the GIT_EDITOR environment variable: export GIT_EDITOR=vim
+
+
+ 加入指定的 share library path
+方法一：
+    執行指令時，有時會缺少libary (dynamic libary)Linux 運行的時候，是如何管理share libary(通當是*.so，如果是*.so.3.1，那3.1為版本)的呢？
+    share libary 由 /lib/ld.so 來 search & load，ld.so 在標準路徑 (/lib, /usr/lib) 中尋找應用程序的library。但是，如果需要用到其它的 share library 在非標準路徑，那 ld.so 怎麼找到它？
+    目前， Linux 通用的做法是將非標準路徑加入 /etc/ld.so.conf 或加個檔案在 /etc/ld.so.conf.d/*.conf (內容必需是path) 然後再執行 ldconfig 生成 /etc/ld.so.cache。ld.so 讀取libary的时候，會從 ld.so.cache 查找。
+可以再配合 ldd 查看，如下。 ( ldconfig -p 可以列出所有的share library的資訊 )
+
+方法二：
+還可以用
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/lib
+export LD_LIBRARY_PATH
+echo $LD_LIBRARY_PATH
+
+ldd 參數：
+ -d | 重新定位並回報遺失的物件檔
+ -r | 重新定位並回報遺失的物件資料與函數
+ -v | 顯示完整執行過程
+
+mount sshfs :
+	sshfs NAME@HOST:/path/to/folder <local_folder_to_mount>
+unmount sshfs :
+	fusermount -u <local_folder_to_unmount>
+
+git list all commits between two commit id :
+	git rev-list --ancestry-path <commit1>..<commit2>
+
+eliminate punctuation at start and/or end of each line :
+sed -e 's|^[[:punct:]]*||; s|[[:punct:]]*$||;' -i file-to-edit
+
+deletes any trailing whitespace at the end of each line:
+:%s/\s\+$//
+
+10 language collection 
+https://github.com/Kyubyong/css10
+
+d557f6051c51467732f9da0745b33e36a3d31462
+
+.15 :
+140.110.148.15
+
+/usr/local/cuda/bin/nvcc --version
+
+how to solve oserror 'PortAudio library not found':
+https://www.cnblogs.com/dbj66/p/8817890.html
+
+show device tree :
+cat /tmp/sysinfo/board_name
+
+QCA uboot + DNI FW :
+Steps to boot DNI FW at QCA u-boot
+1. Burn QSDK SPF 10.0 hw-verify firmware v0.0.1-1 (to burn QCA u-boot)
+     IPQ807x# set ipaddr 192.168.1.1
+     IPQ807x# set serverip 192.168.1.10
+     IPQ807x# tftpboot 0x42000000 nand-ipq807x_64-single.img
+     IPQ807x# crc32 0x42000000 ${filesize}
+     IPQ807x# imgaddr=0x42000000 && source $imgaddr:script
+     IPQ807x# reset
+2. Burn DNI FW to flash 0x1980000
+     IPQ807x# set ipaddr 192.168.1.1
+     IPQ807x# set serverip 192.168.1.10
+     IPQ807x# tftpboot 0x42000000 RAX120-V1.0.0.74-QSDK-10.0.img
+     IPQ807x# nand erase 0x1980000 0x4600000
+     IPQ807x# nand write 0x42000080 0x1980000 0x4600000
+     IPQ807x# reset
+3. Change “bootcmd” to boot DNI FW from flash 0x1980000 (copy from DNI u-boot V1.2 and change the “fdt_high”)
+     IPQ807x# setenv bootcmd "setenv mtdids nand0=nand0; setenv fdt_high 0x4A400000; nand read 0x44000000 0x1980000 0x5e0000; bootm 0x44000000#config@hk01"
+     IPQ807x# saveenv
+     IPQ807x# reset
+
+
+show QCA HK CPU version :
+Linux,
+it can be read by followings,
+1. hexdump -e '"%d\n"' /proc/device-tree/soc_version_major
+hexdump -e '"%d\n"' /proc/device-tree/soc_version_minor
+
+2. devmem 0x0194D000
+bit[15:8] is major number, and bit[7:0] is minor one. 
+
+How to git-cherry-pick only changes to certain files?
+git show SHA -- file1.txt file2.txt | git apply -
+
+pykakasi  ,  num2words , mecab
+mecab = MeCab.Tagger ("-Owakati")
+
+show divice tree model version :
+cat /proc/device-tree/model
+
+假設V0.1 的 subumage 位置在當前目錄 V0.1-subimage 下 ,
+我用以下指令將uboot 從舊的 V1.1 升級成新的V0.1 成功
+
+upgrade rax120 uboot via subimage :
+dd if=V0.1-subimage/cdt-AP-HK01-C1_256M32_DDR3.bin of=/dev/mtdblock12
+dd if=V0.1-subimage/bootconfig.bin of=/dev/mtdblock2
+dd if=V0.1-subimage/bootconfig.bin of=/dev/mtdblock3
+dd if=V0.1-subimage/devcfg_nosmmu.mbn of=/dev/mtdblock6
+dd if=V0.1-subimage/nand-system-partition-ipq807x.bin of=/dev/mtdblock1  #mibib
+dd if=V0.1-subimage/openwrt-ipq807x-u-boot.mbn of=/dev/mtdblock15
+dd if=V0.1-subimage/rpm.mbn of=/dev/mtdblock10
+dd if=V0.1-subimage/sbl1_nand.mbn of=/dev/mtdblock0
+dd if=V0.1-subimage/tz.mbn of=/dev/mtdblock4
+
+make hw29765641p0p256p512p2x2p2x2p2x2_defconfig
+
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='b6730fc+r49254' make  HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-muslgnueabi- TARGETCC=arm-openwrt-linux-muslgnueabi-gcc all 2>&1 | tee build.log
+
+CONFIG_HW29765641P0P256P512P2X2P2X2P2X2
+
+defined(CONFIG_HW29765641P0P256P512P2X2P2X2P2X2)
+
+Removing duplicates in grep output :
+grep pattern files | sort -t: -u -k1,1
+
+    -t: - use : as the delimiter
+    -k1,1 - sort based on the first field only
+    -u - removed duplicates (based on the first field)
+
+
+
+倉別：成品(1010),SMT(0010)
+
+部門代號 : PN800931
+申請人 : 王紹全
+申請人工號 : 693667
+保管人 : 王紹全
+保管人工號 : 693667
+專案號碼：SNGR2001010
+客戶 : NETGEAR
+品名或十碼 : RBK350-100NAS
+數量： 1
+廠區：NTL7
+倉別：1010
+用途：RBK350 開發測試
+
+部門代號 : PN800931
+申請人 : 王紹全
+申請人工號 : 693667
+保管人 : 王信智
+保管人工號 : 693831
+專案號碼：SNGR2001010
+客戶 : NETGEAR
+品名或十碼 : RBK350-100NAS
+數量： 5
+廠區：NTL7
+倉別：1010
+用途：RBK350 開發測試
+
+
+爬虫
+
+Hardware board Supported Comments
+AP.DK01.1 Yes IPQ4018-based, Retail       AP.DK01.1-C1 8010000
+AP.DK01.2 Yes IPQ4028-based, Enterprise
+AP.DK03.1 Yes IPQ4018-based, Retail
+AP.DK03.2 Yes IPQ4028-based, Enterprise
+AP.DK04.1 Yes IPQ4019-based, Retail       AP.DK04.1-C1 8010001
+AP.DK04.2 Yes IPQ4029-based, Enterprise
+AP.DK06.x Yes IPQ4019-based LTE gateway, Retail
+AP.DK07.1 Yes IPQ4019-based, Retail with CSR8811 (BT module)
+AP.DK07.2 Yes IPQ4029-based, Enterprise with CSR8811 (BT module)
+AP.DK07.5 Yes IPQ4019-SBS, Retail
+AP.DK07.6 Yes IPQ4019, Retail
+
+
+uboot check :
+**** Enable loadb command
+**** DDR memory test routines per the request of Scorecard
+**** make sure kernel does not reply on u-boot to supply cmdline
+**** Remind u-boot team member to add commands to upgrade u-boot and delenv
+**** Remind u-boot team member to describe clean env command in README
+**** Remind u-boot team member to add commands to show u-boot version info
+**** Remind u-boot team member to avoid using atoi
+**** u-boot must check no ethernet cable and pushing reset button for 15 second can trigger TFTP FW recovery mode
+**** Remind u-boot team member to intentionally add bad block at boarddata partition for testing
+**** Remind u-boot team member to intentionally add bad block in loader partition and FW partition for testing
+**** Remind u-boot team member to check LAN/WAN packet leakage of new projects
+**** Remind u-boot team member to enable nand read.raw and nand write.raw
+**** Remind u-boot team member to enable tftp put command
+**** Remind u-boot team member to skip ethaddr checking for QCA solution
+**** Remind u-boot team member to avoid using UBI on small partition
+**** Remind u-boot team member to remove range check of region set command
+**** Remind u-boot team member to alway reserve enough space for the HW ID given by HW team
+**** Remind u-boot team member to reserve boarddata partition in addtion to art partition
+**** Remind u-boot team member to ensure u-boot use the assigned mac addresses
+**** Remind u-boot team member to record partition tables and offsets in boarddata before the first loader release
+**** TFTP FW Recovery unit test
+**** NMRP unit test (use FW with different model ID)
+
+export PATH="/home/ericwang/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/bin:$PATH"
+export STAGING_DIR="/home/ericwang/toolchain-arm_cortex-a7_gcc-4.8-linaro_uClibc-0.9.33.2_eabi/.."
+
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='r49273' make HOSTCC=arm-openwrt-linux-uclibcgnueabi-gcc HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-uclibcgnueabi- CONFIG_QCA_SINGLE_IMG_GIT="/home/ericwang/git-home/qsdk-chipcode.git"
+
+VSCode — how to set working directory for debug :
+if you're using the Python: Current File (Integrated Terminal) option when you run Python, your launch.json file might look like mine, below.
+
+{
+    "version": "0.2.0",
+    "configurations": [
+    {
+            "name": "Python: Current File (Integrated Terminal)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${fileDirname}"
+    }, 
+
+    //... other settings, but I modified the "Current File" setting above ...
+}
+
+ubuntu + mongodb :
+https://blog.gtwang.org/linux/install-mongodb-on-ubuntu/
+
+MongoDB 預設會以 mongodb 這個使用者的權限來執行，
+並將資料儲存在 /var/lib/mongodb 中，
+而所有的紀錄檔都會放在 /var/log/mongodb，
+而這些設定可以從 /etc/mongod.conf 中修改。
+
+啟用/停用/重啟 MongoDB:
+sudo service mongod start
+sudo service mongod stop
+sudo service mongod restart
+
+reg_ip : ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
+
+cat /sys/firmware/devicetree/base/tz_version
+
+scrapy + docker/splash 
+sudo docker run -p 8050:8050 scrapinghub/splash
+
+
+1. 開機進 FW
+2. 拔掉接在 Aquantia port 上的網路線
+3. 在 console / telnet 下以下指令：
+
+    ssdk_sh debug phy set 7 0x40070010 0x9001  # Set bits[8:7] = 00
+    ssdk_sh debug phy set 7 0x40070020 0x00e1  # Set bits[C] = 0, bits[8:7] = 01
+    ssdk_sh debug phy set 7 0x4007c400 0x1440  # Set bits[F] = 0, bits[C:A] = 101
+    sleep 1
+    ssdk_sh debug phy set 7 0x4004c441 0x8
+
+4. 把網路線插進 Aquantia port。此時 link rate 應該是 2.5 Gbps 了。
+
+grep -i 'foo' $(cat file.list)
+
+max = lambda m, n: m if m > n else n
+
+gentoo : 10.136.100.203
+ericwang/ericwang
+
+How can I install a package without root access?
+
+apt-get download package
+
+Replace package with the name of the package
+
+Once you have your deb file call dpkg directly from the command line. The following example will install package.deb into your home directory.
+
+dpkg -i package.deb --force-not-root --root=$HOME 
+
+The disadvantage to using dpkg like this is that error messages are likely to be cryptic; dpkg doesn't automatically resolve dependencies or create the directory structure it expects.
+
+Finally, you could use the apt-get source command to fetch the source of the package and configure it to install locally. Usually this looks something like:
+
+apt-get source package
+cd package
+./configure --prefix=$HOME
+make
+make install
+
+The disadvantage to this approach is that you need the development environment available for this approach to work at all, and you might find yourself compiling dozens of packages in order to resolve all the dependencies.
+
+EDIT:
+
+As dpkg -i doesn't work (see comments), I suggest this alternative:
+
+dpkg -x package.deb dir
+
+
+openwrt :
+itgserver:/pub/scm/openwrt/ericwang/openwrt.git
+branch : qsdk-networking-ipq6018.ilq.12.0-es1
+commit : 18cf2f0c85e77b3f89493aee7372c63a012a5704
+
+chipcode :
+itgserver:/pub/scm/qualcomm-lsdk/ericwang/qsdk-chipcode.git
+ipq6018-ilq-12-0_qca_oem
+53c5c0958e1a2dfa615c9316c1937fb2ece473b2
+
+linux :
+itgserver:/pub/scm/linux/kernel/ericwang/linux.git
+qca-networking-2019.SPF.12.0-ES
+b29b58698d71aa66cd6f543e5f0da23deeec324c
+
+
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='a274c18+r49254' make -C /tmp/ericwang/qsdk-networking-ipq6018.ilq.12.0-es1/qsdk/build_dir/target-arm_cortex-a7_musl-1.1.16_eabi/linux-ipq_ipq60xx/u-boot-2016-ipq6018/u-boot-2016-ga274c18-dirty HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-muslgnueabi- TARGETCC=arm-openwrt-linux-muslgnueabi-gcc KCPPFLAGS="" DTC=/tmp/ericwang/qsdk-networking-ipq6018.ilq.12.0-es1/qsdk/build_dir/target-arm_cortex-a7_musl-1.1.16_eabi/linux-ipq_ipq60xx/linux-4.4.60/scripts/dtc/dtc all
+
+
+
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='a274c18+r49254' make V=1 HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-muslgnueabi- TARGETCC=arm-openwrt-linux-muslgnueabi-gcc KCPPFLAGS="" CONFIG_QCA_SINGLE_IMG_GIT="/PATH/TO/git-home/qsdk-chipcode.git" all
+
+
+DEEP learning
+
+keras + VGG16 pretrin model
+https://machinelearningmastery.com/use-pre-trained-vgg-model-classify-objects-photographs/
+
+QA :
+1. how to split training and test data
+
+from sklearn.model_selection import train_test_split
+
+# Split the training data into separate train and test sets
+(X_train, X_test, Y_train, Y_test) = train_test_split(data, labels, test_size=0.25, random_state=0)
+
+5.1.1 Find available wireless interfaces
+1. Dump all Wi-Fi interfaces:
+rm /etc/config/wireless
+wifi detect > /etc/config/wireless
+
+odd = sum(i for i in nums[1::2] if not isinstance(i, str))
+
+wifi down
+/etc/init.d/qcmbr start
+ps -www | grep -i qcmbr
+
+ethtool -s em1 speed 100 duplex full autoneg off
+
+uname -a; iwconfig; ifconfig; cat /proc/meminfo;  free; ps -ww; lsmod ; cat /proc/mtd; mount ; df -h ;cat /proc/cpuinfo; cat /proc/iomem 
+
+VScode :
+Q: How can I convert tabs to spaces and vice versa in an existing file ?
+A: 
+    1.F1,
+    2.indentationToSpaces or indentationToTabs (depending on your need)
+    3.Enter.
+
+du -BM --max-depth=1 | sort -nr
+
+你先在uboot 下使用 i2c bus 看一下有沒有回傳值 
+IPQ6018# i2c bus
+Bus 1:  i2c@78ba000
+Bus 0:  i2c@78b7000
+
+有的話選 i2c@78ba000 代表的bus 編號 , 之後就能probe , 過程如下
+IPQ6018# i2c dev 1
+Setting bus to 1
+IPQ6018# i2c probe
+Valid chip addresses: 69
+
+build steps :
+export PATH="/home/ericwang/toolchain-arm_cortex-a7_gcc-5.2.0_musl-1.1.16_eabi/bin:$PATH"
+export STAGING_DIR="/home/ericwang/toolchain-arm_cortex-a7_gcc-5.2.0_musl-1.1.16_eabi/.."
+make hw29766193p0p256p512p2x2p2x2_defconfig
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='a274c18+r49254' make V=1 HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-muslgnueabi- TARGETCC=arm-openwrt-linux-muslgnueabi-gcc KCPPFLAGS="" CONFIG_QCA_SINGLE_IMG_GIT="/home/ericwang/git-home/qsdk-chipcode.git" all
+
+upgrade steps :
+setenv machid 8030200
+setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+tftpboot 0x44000000 uboot-hw29766193p0p256p512p2x2p2x2.img 
+imgaddr=0x44000000 && source $imgaddr:script
+reset
+
+bootm 0x40000000#config@cp03-c1
+
+经过确认：
+1.	这种方法不能启动：
+tftpboot 0x84000000 EX7700-V1.0.0.140-outdoor-0508-target.img
+setenv fdt_high 0x87000000; bootm 0x84000080     （跳过128byte头部）
+
+2.	这种方法可以正常启动，而且wifi可以使用：
+nand read 0x84000000 0x2000000 0xEF0000     （FW实际大小，而不是整块flash大小）
+setenv fdt_high 0x87000000; bootm 0x84000000
+
+
+mtest 0x40000000 0x49000000 0xdeadc0de 0x4
+mtest 0x4A400000 0x50000000 0xdeadc0de 0x4
+mtest 0x50000000 0x60000000 0xdeadc0de 0x4
+
+./arch/arm/configs/qcom_defconfig
+drivers/spi/spi-qup.c
+
+echo "alias ll='ls -a'" >> ~/.bashrc
+
+make -f build/Makefile -j1 PROFILE=963138GW
+
+vscode :
+1.How to open files in new tabs in Visual Studio Code :
+Once you have to open your settings file, add the "workbench.editor.enablePreview" property and set value to false.
+
+
+Nix (Chieh Chun) Lo - broadcom
+mail: nix.lo@broadcom.com
+notes: office 03-5011285
+
+arm-none-eabi-gdb --fullname /home/ericwang/rax60/cfe/build/broadcom/build_cferam_nand/libcfe.a
+
+
+bcm63xx_run --> auto_run --> bootNandImage
+
+ r -> ui_cmd_run_program --> auto_run
+
+
+typedef struct tftp_info_s {
+    int tftp_socket;
+    uint8_t tftp_data[TFTP_MAX_BLOCKSIZE];
+    int tftp_blklen;
+    int tftp_current_blocksize;
+    int tftp_blkoffset;
+    int tftp_fileoffset;
+    uint16_t tftp_blknum;
+    uint8_t tftp_ipaddr[IP_ADDR_LEN];
+    int tftp_lastblock;
+    int tftp_error;
+    int tftp_filemode;
+    char *tftp_filename;
+} tftp_info_t;
+
+memcpy(tftp_ipaddr, buf->eb_usrptr, IP_ADDR_LEN);
+
+typedef struct ebuf_s {
+    queue_t eb_qblock;			/* linkage */
+    unsigned int eb_length;		/* length of area at eb_ptr */
+    unsigned int eb_status;		/* rx/tx status */
+    int eb_port;			/* eth port that owns buffer */
+    void *eb_device;			/* underlying net device */
+    int eb_usrdata;			/* user-defined stuff */
+    uint8_t *eb_usrptr;			/* user-defined stuff */
+    uint8_t *eb_ptr;			/* current ptr within pkt */
+    uint8_t  eb_data[0x5F0];		/* data, must be > ENET_MAX_PKT */
+                                        /* and divisible by sizeof(uint) */
+} ebuf_t;
+
+(gdb) ptype NVRAM_DATA
+type = struct {
+    unsigned int ulVersion;
+    char szBootline[256];
+    char szBoardId[16];
+    unsigned int ulMainTpNum;
+    unsigned int ulPsiSize;
+    unsigned int ulNumMacAddrs;
+    unsigned char ucaBaseMacAddr[6];
+    char pad;
+    char backupPsi;
+    unsigned int ulCheckSumV4;
+    char gponSerialNumber[13];
+    char gponPassword[11];
+    char wpsDevicePin[8];
+    char wlanParams[256];
+    unsigned int ulSyslogSize;
+    unsigned int ulNandPartOfsKb[5];
+    unsigned int ulNandPartSizeKb[5];
+    char szVoiceBoardId[16];
+    unsigned int afeId[2];
+    unsigned short opticRxPwrReading;
+    unsigned short opticRxPwrOffset;
+    unsigned short opticTxPwrReading;
+    unsigned char ucUnused2[58];
+    unsigned char ucFlashBlkSize;
+    unsigned char ucAuxFSPercent;
+    unsigned char ucUnused3[2];
+    unsigned int ulBoardStuffOption;
+    union {
+        unsigned int reserved;
+        struct allocs_rdp alloc_rdp;
+    } allocs;
+    unsigned int ulMemoryConfig;
+    struct partition_info part_info[4];
+    struct allocs_dhd alloc_dhd;
+    unsigned int ulFeatures;
+    char chUnused[268];
+    unsigned int ulCheckSum;
+}
+
+    struct rootfs_info
+    {
+        int rootfs;
+        int start_blk;
+        int end_blk;
+        int type;
+        int committed;
+        int boot_val;
+        unsigned int ino;
+        unsigned int blk;
+        unsigned int mctime;
+    } rfs_info[2], *prfs_info[2], *rfsi;
+
+(gdb) ptype PFILE_TAG
+type = struct _FILE_TAG {
+    char tagVersion[4];
+    char signiture_1[20];
+    char signiture_2[14];
+    char chipId[6];
+    char boardId[16];
+    char bigEndian[2];
+    char totalImageLen[10];
+    char cfeAddress[12];
+    char cfeLen[10];
+    char rootfsAddress[12];
+    char rootfsLen[10];
+    union {
+        char kernelAddress[12];
+        char bootfsAddress[12];
+    };
+    union {
+        char kernelLen[10];
+        char bootfsLen[10];
+    };
+    char imageSequence[4];
+    char imageVersion[32];
+    union {
+        char dtbAddress[12];
+        char mdataAddress[12];
+    };
+    union {
+        char dtbLen[10];
+        char mdataLen[10];
+    };
+    unsigned int imageFlags;
+    char reserved[16];
+    char imageValidationToken[20];
+    char tagValidationToken[20];
+} *
+
+
+vim exact search :
+/\<your_exact_word\>
+
+
+You can get V7610 code from dniserver/scm/dnigit/wlan_bb/projects/netgear/v7610/v7610_v1/. But current V7610 CFE does not support tftp recovery and NMRP function.
+I found another cfe git repository on 
+
+find specific and then copy to target location:
+find <path> <condition> -exec cp '{}' <copy path> \;
+
+i2c dev 0
+i2c probe 
+i2c md 0x48 0.0
+
+i2cdetect -r -y 0
+i2cdump -y 0 0x48
+
+sys/class/gpio# echo 77 > export
+root@OpenWrt:/sys/devices/platform/soc/1000000.pinctrl/gpio/gpio77#
+
+target/linux/ipq/base-files/etc/uci-defaults/network
+
+                make toolchain/install V=sc || exit
+                make target/linux/compile V=sc || exit
+                make package/feeds/bootloader/uboot-qca/install V=sc || exit
+
+echo "77" /sys/class/gpio/export
+cd /sys/class/gpio/gpio77/
+echo "out" > direction
+echo 1 > value
+
+mmcblk at FW:
+/sys/class/block
+
+
+setenv machid 8030200
+setenv ipaddr 192.168.1.1 && setenv serverip 192.168.1.10
+tftpboot 0x44000000 nand-ipq6018-single.img
+imgaddr=0x44000000 && source $imgaddr:script
+reset
+
+CONFIG_SF_DEFAULT_SPEED 
+
+       a. Build CFE
+           # cd cfe/build/broadcom/bcm63xx_rom/
+           # make 47622 DNI_NMRP_UPGRADE_ENHANCE=1 SINGLE_IMAGE=1
+        b. Build image
+           # make PROFILE=947622GW WLIMPL=61 SINGLE_IMAGE=1
+        c. Build CFE only image
+           # make PROFILE=947622GW DNI_NMRP_UPGRADE_ENHANCE=1 WLIMPL=61 cfeimage BRCM_MAX_JOBS=1
+
+
+nvram_data : 
+../../../../shared/opensource/include/bcm963xx/bcm_hwdefs.h
+
+cfe/include/lib_byteorder.h
+
+
+python elftombn.py -f openwrt-ipq807x-u-boot.elf -o openwrt-ipq807x-u-boot.mbn
+
+export PATH="/home/ericwang/toolchain-arm_cortex-a7_gcc-5.2.0_musl-1.1.16_eabi/bin:$PATH"
+
+export STAGING_DIR="/home/ericwang/toolchain-arm_cortex-a7_gcc-5.2.0_musl-1.1.16_eabi/.."
+
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='74ec114+r49254' make -C /tmp/ericwang/AGE832AX4-openwrt.git/build_32bit/build_dir/target-arm_cortex-a7_musl-1.1.16_eabi/linux-ipq_ipq807x/u-boot-2016-ipq807x/u-boot-2016-g74ec114-dirty HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-muslgnueabi- TARGETCC=arm-openwrt-linux-muslgnueabi-gcc KCPPFLAGS=" " DTC=/tmp/ericwang/AGE832AX4-openwrt.git/build_32bit/build_dir/target-arm_cortex-a7_musl-1.1.16_eabi/linux-ipq_ipq807x/linux-4.4.60/scripts/dtc/dtc all
+
+
+VERSION_CODE='Chaos Calmer 15.05.1' REVISION='95bec74+r49254' make V=1 HOSTSTRIP=true CROSS_COMPILE=arm-openwrt-linux-muslgnueabi- TARGETCC=arm-openwrt-linux-muslgnueabi-gcc KCPPFLAGS="" CONFIG_QCA_SINGLE_IMG_GIT="/PATH/TO/git-home/qsdk-chipcode.git" all
+
+
+cfe nmrp flow :
+
+bcm63xx_cmd.c  bcm63xx_run_ex  ----> NmrpStart
+
+96755REF1SGP200
+
+NMRP proto = 0x912
+
+PROTOSPACE_NMRP       0x0912
+
+
+#define NMRP_buf_t	ebuf_t
+
+typedef struct ebuf_s {
+    queue_t eb_qblock;			/* linkage */
+    unsigned int eb_length;		/* length of area at eb_ptr */
+    unsigned int eb_status;		/* rx/tx status */
+    int eb_port;			/* eth port that owns buffer */
+    void *eb_device;			/* underlying net device */
+    int eb_usrdata;			/* user-defined stuff */
+    uint8_t *eb_usrptr;			/* user-defined stuff */
+    uint8_t *eb_ptr;			/* current ptr within pkt */
+    uint8_t  eb_data[0x5F0];		/* data, must be > ENET_MAX_PKT */
+                                        /* and divisible by sizeof(uint) */
+} ebuf_t;
+
+struct nmrp_info_s {
+    net_info_t net_info;
+
+    /* Ethernet info */
+    ether_info_t *eth_info;
+
+    int nmrp_port;
+};
+
+typedef struct net_info_s {
+    /* Configuration info for IP interface */
+    uint8_t ip_addr[IP_ADDR_LEN];
+    uint8_t ip_netmask[IP_ADDR_LEN];
+    uint8_t ip_gateway[IP_ADDR_LEN];
+    uint8_t ip_nameserver[IP_ADDR_LEN];
+    uint8_t *ip_domain;
+    uint8_t *ip_hostname;
+} net_info_t;
+
+struct ether_info_s {
+    ether_port_t *eth_ports;
+    queue_t eth_freelist;
+    uint8_t eth_hwaddr[6];
+    int eth_devhandle;
+    ebuf_t *eth_bufpool;
+};
+
+typedef struct				
+{
+    char boardIp[BOOT_IP_LEN];
+    char boardMask[BOOT_IP_LEN];        // set for the board only and ignore for the host/gw. fmt :ffffff00
+    char hostIp[BOOT_IP_LEN];
+    char gatewayIp[BOOT_IP_LEN];
+    char runFrom;
+    char hostFileName[BOOT_FILENAME_LEN];
+    char flashFileName[BOOT_FILENAME_LEN];
+    char ramfsFileName[BOOT_FILENAME_LEN];
+    char dtbFileName[BOOT_FILENAME_LEN];
+    int  bootDelay;
+    char bootPartition;
+    unsigned int rdAddr;
+} BOOT_INFO, *PBOOT_INFO;
+
+extern BOOT_INFO bootInfo;
+
+NmrpStart();
+
+typedef struct {
+        u16 reserved;
+        uchar code;
+        uchar id;
+        u16 length;
+        NMRP_OPT opt;
+}nmrp_t;
+
+FYI :
+https://github.com/jclehner/nmrpflash
+http://www.chubb.wattle.id.au/PeterChubb/nmrp.html
+
+sudo nmrpflash -i <eth_interface> -a <client_ip> -A <server_ip> -f <image_name>
+ex : 
+sudo nmrpflash -i enx00051bb12995 -a 192.168.1.1 -A 192.168.1.10 -f uboot-orbi-outdoor-hw29765619p0p256p512p2x2p2x2p4x4-v2.2.img
+
+NMRP magicno : "NTGR" 
+nmrpproto = 0x0912 
+
+flow :
+1. NMRP server mac broadcast : 0x912 ,  with code ADVERTISE(1)
+2. dut got 0x912 broadcast , ack to server mac with code CONF_REQ(2)
+3. NMRP server send CONF_ACK(3)	To device, it Contains IP address of TFTP server (DHCP like)
+4. dut use the ip from step3 , then send TFTP_UL_REQ (16) to NMRP server .
+5. 
+   dut  (work as tftp server): start a tftp server and waiting write request
+   NMRP server (tftp client ): fire a TFTP write request contain <image_name> to dut ip .  
+
+6. <to do item for NMRP CLOSE_ACK after tftp done >
+
+0000   00 00 01 00 00 0e 00 01 00 08 4e 54 47 52 00 00   ..........NTGR..
+0010   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0030   00 00                                             ..
+
+0000   00 00 02 00 00 06 00 00 00 00 00 00 00 00 00 00   ................
+0010   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020   00 00 00 00 00 00 00 00 00 00 00 00 00 00 8d 30   ...............0
+
+0000   00 00 03 00 00 16 00 02 00 0c 0a 00 00 04 ff ff   ..............ÿÿ
+0010   ff 00 01 01 00 04 00 00 00 00 00 00 00 00 00 00   ÿ...............
+0020   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0030   00 00                                             ..
+
+0000   00 00 10 00 00 06 00 00 00 00 00 00 00 00 00 00   ................
+0010   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020   00 00 00 00 00 00 00 00 00 00 00 00 00 00 aa cc   ..............ªÌ
+
+cd cfe/build/broadcom/bcm63xx_rom
+make 47622 DNI_NMRP_UPGRADE_ENHANCE=1
+
+make PROFILE=947622GW DNI_NMRP_UPGRADE_ENHANCE=1 WLIMPL=61 cfeimage BRCM_MAX_JOBS=1
+
+upgrade_image 192.168.1.10:bcm947622GW_nand_cferamonly_pureubi.128.w 0x100000
+
+make V=s package/feeds/platform_utils/wireless/clean
+make V=s package/feeds/platform_utils/wireless/prepare
+make V=s package/feeds/platform_utils/wireless/install
+
+
+board_data_set_all 00:12:12:12:12:1a 00:12:10:12:12:1b 00:12:10:12:00:1c 00:12:10:12:12:1d 12345678 RBR350 0001 12 ORBI ORBI12 ORBI_HIDDEN_12 greenlo123 qazxswedcvfrtgbnhy 02 01 01
+
+
+sudo nmrpflash -i enx00051ba3642c -a 10.0.0.4 -A 10.0.0.1 -f RBR350_C4.3.0.2_1.2.4-apps_fw_upgrade-0401.img
+
+2.	设置boarddata
+Base:
+board_data_show_all
+board_data_set_all 00:12:12:12:12:14 00:12:10:12:12:15 00:12:10:12:00:16 00:12:10:12:12:00 12345678 1ML1747D0000B 0001 29766296+0+512+512+2x2+2x2 RBR350 ORBI12 ORBI_HIDDEN_12 greenlo123 qazxswedcvfrtgbnhy 111C 01 01
+board_data_show_all
+
+Satellite:
+board_data_show_all
+board_data_set_all 00:12:12:12:12:14 00:12:10:12:12:15 00:12:10:12:00:16 00:12:10:12:12:00 12345678 1ML1747D0000B 0001 29766296+0+256+512+2x2+2x2 RBS350 ORBI12 ORBI_HIDDEN_12 greenlo123 qazxswedcvfrtgbnhy 111D 01 01
+board_data_show_all
+
+rax70 dump language table:
+nanddump /dev/mtd11 -f test
+
+build :
+sudo apt-get update -y
+sudo apt-get install -y libnl-route-3-dev
+make && make install
+
+multicast mac :
+                            |<        23 bits      >|
+00000001-00000000-01011110-0XXXXXXX-XXXXXXXX-XXXXXXXX
+   01   -   00   -   5E   -(00~7F) -(00~FF) - (00~FF)
+
+find . -type f -exec sed -e 's/cpu/memory/ig' '{}' \;
+
+val     ASCII char
+0x30    0
+0x41    a
+0x61    A
+
+tftp -r sec_pss_0006.dat -g 192.168.1.10
+echo -n "sec_pss_0006.dat" > /sys/sec_dat/sec_dat
+
+Give the output of 0xa01d0 register:
+ 
+root@OpenWrt:/# devmem 0xa01d0
+0x00000030
+ 
+OR
+ 
+IPQ6018# md 0xa01d0
+000a01d0: 00000030
+
+check whether enable secure boot
+cat /sys/devices/system/qfprom/qfprom0/authenticate 
+ 
+If the output shows : 0x00000030, It means secure-boot feature is enabled, secure-boot authentication bit is enabled.
+
+Code (value)	Direction	Meaning
+ADVERTISE (1)	To device	Turn on the NMRP stack; content should be MagicNumber option
+CONF_REQ (2)	From Device	Ask for configuration from server
+CONF_ACK (3)	To device	Contains IP address of TFTP server
+CLOSE_REQ (4)	From device	Ask for connexion to close
+CLOSE_ACK (5)	To device	Close connexion
+KEEP_ALIVE_REQ (6)	Either	
+KEEP_ALIVE_ACK (7)	Either	
+TFTP_UL_REQ (16)	From device	Device has started a TFTP server, so upload a firmware image to it.
+
+ignore output:
+/path/to/script.sh > /dev/null 2>&1
+
+
+mkimage -A arm64 -O linux -C lzma -T kernel -a 0x40908000 -e 0x40908000 -n 'Linux4.4' -d squashfs squashfs.uImage
+
+implicit declaration of function <= 欠缺標頭檔
+
+因為在C語言中，當函式在呼叫函式之前沒有宣告或定義，預設作為隱式宣告處理，
+只要在呼叫函式之後定義，或在別的模組中定義並編譯成庫檔案，該庫檔案在呼叫函式所屬模組編譯時載入，程式即可正常執行。
+只會給你一個警告：implicit declaration of function <函式名>。
+但是在link時，C 編譯器會在你的程式及基本函式庫裡找你所用的函式。
+如果找不到，C 編譯器就會給你一個linker錯誤：undefined reference to <函式名>。
+
+用g++編譯出現錯誤和警告 , 因為g++使用C++的規則：函式在被呼叫前必須宣告或定義。
+
+
+    - A-SHDNI01上海軟體工程部
+    - A-XMDNI 廈門軟體工程部
+
