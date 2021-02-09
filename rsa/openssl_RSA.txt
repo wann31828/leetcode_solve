@@ -1,0 +1,33 @@
+製作私鑰
+openssl genrsa -out my.key 2048
+
+查看私鑰 Get exponent and modulus given a private key
+openssl rsa -in qpsa_rootca.key -text -noout
+
+抽取公鑰 extract public key from private key
+openssl rsa -in privkey.pem -pubout -out key.pub
+
+建立憑證
+openssl req -x509 -new -nodes -key my.key -sha256 -days 3650 -out my.crt
+
+查看憑證
+openssl x509 -in my.crt -text -noout
+
+
+
+ Get exponent and modulus given a public key
+openssl rsa -pubin -inform PEM -text -noout < public.key
+
+
+ RSA算法的步骤主要有以下几个步骤：
+1、选择 p、q两个超级大的质数 ，都是1024位，显得咱们的程序货真价实。
+2、令n = p * q。取 φ(n) =(p-1) * (q-1)。 计算与n互质的整数的个数。
+3、取 e ∈ 1 < e < φ(n) ，( n , e )作为公钥对，正式环境中取65537。可以打开任意一个被认证过的https证书，都可以看到。
+4、令 ed mod φ(n) = 1，计算d，( n , d ) 作为私钥对。 计算d可以利用扩展欧几里的算法进行计算，非常简单，不超过5行代码就搞定。
+5、销毁 p、q。密文 = 明文 ^ e mod n ， 明文 = 密文 ^ d mod n。利用蒙哥马利方法进行计算，也叫反复平方法，非常简单，不超过10行代码搞定。
+
+RSA Express Encryption/Decryption Calculator
+https://www.cs.drexel.edu/~jpopyack/Courses/CSP/Fa17/notes/10.1_Cryptography/RSA_Express_EncryptDecrypt_v2.html
+
+prime generater :
+https://www.browserling.com/tools/prime-numbers
