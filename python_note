@@ -860,4 +860,10 @@ def chunkstring(string, length):
 Matrix creation of n*n 
 [[next(itertools.count(0,0)) for i in range(N)] for i in range(N)]
 
-import copy
+>>> format(14, '#010b')
+'0b00001110'
+
+
+import sys
+int.from_bytes(b'\x11', byteorder=sys.byteorder)  # => 17
+bin(int.from_bytes(b'\x11', byteorder=sys.byteorder))  # => '0b10001'
